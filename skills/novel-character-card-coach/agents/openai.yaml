@@ -1,0 +1,4 @@
+interface:
+  display_name: "Novel Character Card Coach"
+  short_description: "Extract and refine evidence-grounded webnovel character cards, relationships, arcs, and rosters."
+  default_prompt: "Use $novel-character-card-coach to build or refine character material from my story notes."

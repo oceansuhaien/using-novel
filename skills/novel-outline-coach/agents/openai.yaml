@@ -1,0 +1,4 @@
+interface:
+  display_name: "Novel Outline Coach"
+  short_description: "Turn scattered webnovel ideas into a workable premise, outline, volume plan, and canon structure."
+  default_prompt: "Use $novel-outline-coach to turn my scattered webnovel ideas into a usable outline and keep the canon updated."

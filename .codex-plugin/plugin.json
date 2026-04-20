@@ -1,0 +1,42 @@
+{
+  "name": "novel-skills",
+  "version": "0.2.0",
+  "description": "Chinese webnovel workflow router for outline, plot, character, and shared canon-policy skill orchestration.",
+  "author": {
+    "name": "Local Workspace"
+  },
+  "license": "MIT",
+  "keywords": [
+    "novel",
+    "webnovel",
+    "outline",
+    "plot",
+    "character",
+    "canon",
+    "skills",
+    "router"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Novel Skills",
+    "shortDescription": "Route novel work across outline, plot, character, and canon-policy skills",
+    "longDescription": "Workspace-local plugin that adds a /using-novel entrypoint, direct novel lane commands, and shared references for Chinese webnovel outline, plot, character, and canon maintenance workflows.",
+    "developerName": "Local Workspace",
+    "category": "Writing",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use /using-novel to route this story task",
+      "Use /novel-outline to turn this idea into an outline and plot spine",
+      "Use /novel-plot to repair this arc and strengthen the hooks",
+      "Use /novel-character to build or refine a character card from my story notes"
+    ],
+    "brandColor": "#8C4A2F",
+    "composerIcon": "./assets/novel-skills.svg",
+    "logo": "./assets/novel-skills.svg",
+    "screenshots": []
+  }
+}

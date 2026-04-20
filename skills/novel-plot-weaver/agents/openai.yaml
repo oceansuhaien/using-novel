@@ -1,0 +1,4 @@
+interface:
+  display_name: "Novel Plot Weaver"
+  short_description: "Refine webnovel plot material into mainlines, beats, hidden threads, foreshadowing, hooks, and reversals."
+  default_prompt: "Use $novel-plot-weaver to refine my webnovel plot into confirmed mainlines, hidden threads, foreshadowing, and story beats."

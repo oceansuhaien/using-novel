@@ -1,0 +1,4 @@
+interface:
+  display_name: "Using Novel"
+  short_description: "Route Chinese webnovel work across outline, plot, and character skills."
+  default_prompt: "Use $using-novel to route my story task to the right novel skill."

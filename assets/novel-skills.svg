@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title>Novel Skills</title>
+  <rect width="256" height="256" rx="40" fill="#8C4A2F"/>
+  <path d="M64 68c0-8.837 7.163-16 16-16h96c8.837 0 16 7.163 16 16v120c0 8.837-7.163 16-16 16H80c-8.837 0-16-7.163-16-16V68z" fill="#F4E7D0"/>
+  <path d="M92 84h72v16H92zm0 32h72v12H92zm0 28h72v12H92zm0 28h48v12H92z" fill="#8C4A2F"/>
+  <circle cx="176" cy="176" r="20" fill="#C96F3B"/>
+</svg>
