@@ -1,6 +1,6 @@
 # Novel Driver Plugin Guidance
 
-- `C:\person\code\小说\药丸\novel-driver\` is the maintained source of truth for this plugin.
+- This repository root is the maintained source of truth for this plugin.
 - `skills/` is the authoring source for skill behavior.
 - `.codex/skills/` mirrors are install or sync artifacts, not a second authoring tree.
 - Keep entry files thin. Detailed novel workflow belongs in `skills/*/SKILL.md` and `skills/*/references/`.
