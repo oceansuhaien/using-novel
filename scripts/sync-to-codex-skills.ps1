@@ -1,11 +1,21 @@
 param(
-    [string]$PluginRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
+    [string]$PluginRoot,
     [Parameter(Mandatory = $true)]
     [string]$TargetRoot,
     [switch]$Apply
 )
 
 $ErrorActionPreference = "Stop"
+$scriptDir = if ($PSScriptRoot) {
+    $PSScriptRoot
+} else {
+    Split-Path -Parent $MyInvocation.MyCommand.Path
+}
+
+if (-not $PluginRoot) {
+    $PluginRoot = (Resolve-Path (Join-Path $scriptDir "..")).Path
+}
+
 $sourceRoot = Join-Path $PluginRoot "skills"
 
 if (-not (Test-Path $sourceRoot)) {
