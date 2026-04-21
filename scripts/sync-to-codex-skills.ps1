@@ -1,6 +1,7 @@
 param(
     [string]$PluginRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
-    [string]$TargetRoot = (Resolve-Path (Join-Path $PluginRoot "..\..\.codex\skills")).Path,
+    [Parameter(Mandatory = $true)]
+    [string]$TargetRoot,
     [switch]$Apply
 )
 
@@ -12,22 +13,23 @@ if (-not (Test-Path $sourceRoot)) {
     exit 1
 }
 
-if (-not (Test-Path $TargetRoot)) {
+$targetRootFull = [System.IO.Path]::GetFullPath($TargetRoot)
+if (-not (Test-Path $targetRootFull)) {
     if ($Apply) {
-        New-Item -ItemType Directory -Force -Path $TargetRoot | Out-Null
+        New-Item -ItemType Directory -Force -Path $targetRootFull | Out-Null
     } else {
-        Write-Host "Would create target directory: $TargetRoot"
+        Write-Host "Would create target directory: $targetRootFull"
     }
 }
 
 foreach ($skill in Get-ChildItem -LiteralPath $sourceRoot -Directory) {
-    $target = Join-Path $TargetRoot $skill.Name
+    $target = Join-Path $targetRootFull $skill.Name
     $targetFull = [System.IO.Path]::GetFullPath($target)
-    $targetRootFull = [System.IO.Path]::GetFullPath($TargetRoot)
     if (-not $targetFull.StartsWith($targetRootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
         Write-Error "Refusing to sync outside target root: $targetFull"
         exit 1
     }
+
     if (-not $Apply) {
         Write-Host "Would sync $($skill.FullName) -> $targetFull"
         continue
@@ -56,5 +58,5 @@ foreach ($skill in Get-ChildItem -LiteralPath $sourceRoot -Directory) {
 }
 
 if (-not $Apply) {
-    Write-Host "Dry run only. Re-run with -Apply to update .codex/skills mirrors."
+    Write-Host "Dry run only. Re-run with -Apply to update a target skills mirror."
 }

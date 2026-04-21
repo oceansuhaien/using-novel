@@ -16,7 +16,7 @@ if ($files.Count -eq 0) {
     exit 1
 }
 
-Write-Host "Novel skill eval files:"
+Write-Host "Novel Driver eval files:"
 $files | ForEach-Object { Write-Host "- $($_.Name)" }
 
 Write-Host ""
