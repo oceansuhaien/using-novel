@@ -1,4 +1,4 @@
-# Novel Skills Plugin Guidance
+# Novel Driver Plugin Guidance
 
 Follow `AGENTS.md` in this directory for plugin maintenance rules.
 

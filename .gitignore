@@ -6,6 +6,11 @@ Desktop.ini
 # Editor settings
 .idea/
 .vscode/
+*.code-workspace
+
+# Local Codex and plugin state
+.agents/
+.codex/
 
 # Temporary and backup files
 *.log

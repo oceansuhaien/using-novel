@@ -1,119 +1,89 @@
-# Novel Skills
+# Novel Driver
 
-`novel-skills` is a workspace-local Codex plugin focused on Chinese webnovel development workflows.
+`novel-driver` is an installable Codex plugin for Chinese webnovel development workflows.
 
-It packages a small set of specialized skills and thin command entrypoints so a writing-oriented workspace can route requests into the right lane without duplicating rules across prompt files.
+It routes outline, plot, character, and shared canon-policy work through focused skills without treating a story workspace as part of the plugin itself.
 
-## What This Plugin Does
+## Install
 
-The plugin currently covers four main authoring lanes plus one shared reference layer:
+Clone the repository into a directory where you keep local plugins:
 
-- `using-novel`: broad router for mixed or unclear novel-development requests
-- `novel-outline-coach`: premise, hook, outline, volume plan, and canon consolidation
-- `novel-plot-weaver`: plot beats, hidden threads, reversals, foreshadowing, and progression repair
-- `novel-character-card-coach`: character cards, relationship cards, arcs, rosters, and character-bound rules
-- `novel-system-reference`: shared directory contracts, evidence standards, and sync/writeback policy
+```powershell
+git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
+```
 
-## Design Principles
+Register it as a local plugin source in your marketplace configuration:
 
-- `plugins/novel-skills/` is the only maintained source of truth for the plugin
-- `.codex/skills/` mirrors are install or sync artifacts, not a second authoring tree
-- command files stay thin and only dispatch into skills
-- skill-specific workflow detail lives in `skills/*/SKILL.md` and `skills/*/references/`
-- shared policy belongs in one reference source instead of being copied into multiple skills
+```json
+{
+  "plugins": [
+    {
+      "name": "novel-driver",
+      "source": {
+        "source": "local",
+        "path": "C:/path/to/plugins/novel-driver"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Writing"
+    }
+  ]
+}
+```
 
-## Who This Is For
+## Commands
 
-Use this plugin when the workspace needs structured help with:
+- `/using-novel`: route a mixed or unclear novel-development request
+- `/novel-outline`: work directly on premise, outline, volume plan, and canon structure
+- `/novel-plot`: work directly on beats, suspense, reversals, and hidden threads
+- `/novel-character`: work directly on character cards, relationships, arcs, and rosters
 
-- turning fragments into longform webnovel outlines
-- tightening arcs, hooks, suspense, and reversals
-- extracting character cards from existing story notes
-- keeping story-canon handling consistent across outline, plot, and character work
-
-This is not a generic fiction generator. The plugin is optimized for evidence-driven Chinese webnovel development inside a local Codex workspace.
-
-## Entry Points
-
-Use `/using-novel` when the request spans multiple domains or the right lane is still unclear:
-
-- `/using-novel help me turn this fragment into a longform outline`
-- `/using-novel fix the volume 1 beats and hide a later betrayal`
-- `/using-novel make a character card for this antagonist`
-- `/using-novel I need premise, plot spine, and main cast positioning`
-
-Use a direct command when the lane is already obvious:
-
-- `/novel-outline`
-- `/novel-plot`
-- `/novel-character`
-
-## Project Layout
+## Repository Layout
 
 ```text
-plugins/novel-skills/
+novel-driver/
 |- .codex-plugin/          plugin metadata
 |- assets/                 icons and display assets
 |- commands/               thin command adapters
 |- evals/                  manual regression cases
 |- scripts/                validation and sync helpers
 |- skills/                 skill source of truth
-|- AGENTS.md               plugin-local maintenance rules
+|- AGENTS.md               plugin maintenance rules
 |- CLAUDE.md               Claude-facing adapter
-|- README.md               plugin overview and maintenance guide
+|- README.md               installation and development guide
 ```
 
-## Key Files
-
-- `.codex-plugin/plugin.json`: plugin metadata, interface text, icon wiring, and skill root declaration
-- `commands/*.md`: command adapters that dispatch into the plugin skills
-- `skills/*/SKILL.md`: primary workflow instructions for each skill
-- `skills/*/references/`: shared schemas, methods, and policy references
-- `skills/*/agents/openai.yaml`: user-facing skill metadata that must stay aligned with the skill trigger contract
-- `evals/*.md`: regression prompts and expected routing/behavior checks
-- `scripts/quick-validate.ps1`: structural validation for plugin metadata and skill files
-- `scripts/run-evals.ps1`: lists manual evaluation cases
-- `scripts/sync-to-codex-skills.ps1`: one-way sync helper for `.codex/skills/` mirrors
-
-## Local Development
-
-This plugin is maintained directly from `plugins/novel-skills/`.
-
-When editing it:
-
-- update source files here first
-- do not treat `.codex/skills/` as a manual authoring location
-- keep `SKILL.md` frontmatter and `agents/openai.yaml` aligned for user-facing skills
-- avoid writing story data into `.novel-skill/` during plugin maintenance unless the task explicitly switches to story or canon work
-
-## Validation
+## Development
 
 Validate plugin structure:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File plugins\novel-skills\scripts\quick-validate.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\quick-validate.ps1
 ```
 
 List manual eval cases:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File plugins\novel-skills\scripts\run-evals.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\run-evals.ps1
 ```
 
-Preview sync into `.codex/skills/`:
+Preview a one-way mirror into another skill directory:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File plugins\novel-skills\scripts\sync-to-codex-skills.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\sync-to-codex-skills.ps1 -TargetRoot C:\path\to\skills-mirror
 ```
 
-Apply sync only when intentionally refreshing local mirrors:
+Apply the mirror intentionally:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File plugins\novel-skills\scripts\sync-to-codex-skills.ps1 -Apply
+powershell -ExecutionPolicy Bypass -File .\scripts\sync-to-codex-skills.ps1 -TargetRoot C:\path\to\skills-mirror -Apply
 ```
 
-## Maintenance Notes
+## Non-goals
 
-- keep the README focused on plugin usage and maintenance, not on duplicating full skill bodies
-- prefer adding shared rules to reference files instead of copying them into multiple command or skill entry files
-- keep diffs small and reversible because this plugin is primarily prompt-and-policy infrastructure
+- This is not a story project repository.
+- This repository does not own `.novel-skill/` story data.
+- This repository does not carry `.omx` or `.omc` runtime state.
+- `.codex/skills/` mirrors are generated artifacts, not the authoring source.
