@@ -17,18 +17,18 @@ If more than one novel skill applies, sequence them deliberately. Do not run the
 
 ## Purpose
 
-This is the router entrypoint for the local `novel-skills` plugin.
+This is the router entrypoint for the local `novel-driver` plugin.
 
 Use it to decide whether the request belongs to:
 
-- `novel-skills:novel-outline-coach`
-- `novel-skills:novel-plot-weaver`
-- `novel-skills:novel-character-card-coach`
-- `novel-skills:novel-system-reference` for shared directory, evidence, and sync policy
+- `novel-driver:novel-outline-coach`
+- `novel-driver:novel-plot-weaver`
+- `novel-driver:novel-character-card-coach`
+- `novel-driver:novel-system-reference` for shared directory, evidence, and sync policy
 
 Or whether the request should move through a combination of those skills in a fixed order.
 
-Shared `.novel-skill/` directory, evidence, and cross-document sync policy lives in `novel-skills:novel-system-reference`. Do not duplicate those rules here.
+Shared `.novel-skill/` directory, evidence, and cross-document sync policy lives in `novel-driver:novel-system-reference`. Do not duplicate those rules here.
 
 ## Routing Priority
 
@@ -41,7 +41,7 @@ Respect these priorities:
 
 ## Skill Registry
 
-### `novel-skills:novel-outline-coach`
+### `novel-driver:novel-outline-coach`
 
 Use for:
 
@@ -50,7 +50,7 @@ Use for:
 - worldbuilding canon, setting bible, factions, rules
 - high-level story structure that should be written back to `.novel-skill/summary.md`, `outline/`, or `canon/`
 
-### `novel-skills:novel-plot-weaver`
+### `novel-driver:novel-plot-weaver`
 
 Use for:
 
@@ -59,7 +59,7 @@ Use for:
 - progression repair when the story has momentum or payoff problems
 - consolidating confirmed plot conclusions into `.novel-skill/plot/`
 
-### `novel-skills:novel-character-card-coach`
+### `novel-driver:novel-character-card-coach`
 
 Use for:
 
@@ -68,7 +68,7 @@ Use for:
 - evidence-driven extraction of character facts from existing `.novel-skill/` materials
 - organizing confirmed character material into `.novel-skill/characters/`
 
-### `novel-skills:novel-system-reference`
+### `novel-driver:novel-system-reference`
 
 Use as a support reference for:
 

@@ -7,7 +7,7 @@ description: Help iteratively refine Chinese webnovel plot material into confirm
 
 ## Shared Reference Layer
 
-Use `novel-skills:novel-system-reference` for shared `.novel-skill/` directory, evidence-level, and cross-document sync policy. This skill owns plot-specific workflow and output decisions only.
+Use `novel-driver:novel-system-reference` for shared `.novel-skill/` directory, evidence-level, and cross-document sync policy. This skill owns plot-specific workflow and output decisions only.
 
 ## Shared Cross-Document Sync Contract
 

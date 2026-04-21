@@ -1,6 +1,6 @@
 # Router Eval Cases
 
-Use these cases to check `novel-skills:using-novel`.
+Use these cases to check `novel-driver:using-novel`.
 
 | Case | User prompt | Expected route | Expected first move |
 | --- | --- | --- | --- |
