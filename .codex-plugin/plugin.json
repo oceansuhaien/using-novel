@@ -1,9 +1,9 @@
 {
-  "name": "novel-skills",
-  "version": "0.2.0",
-  "description": "Chinese webnovel workflow router for outline, plot, character, and shared canon-policy skill orchestration.",
+  "name": "novel-driver",
+  "version": "0.3.0",
+  "description": "Installable Codex plugin for Chinese webnovel outline, plot, character, and canon-policy workflows.",
   "author": {
-    "name": "Local Workspace"
+    "name": "Novel Driver Contributors"
   },
   "license": "MIT",
   "keywords": [
@@ -13,15 +13,15 @@
     "plot",
     "character",
     "canon",
-    "skills",
-    "router"
+    "driver",
+    "workflow"
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Novel Skills",
-    "shortDescription": "Route novel work across outline, plot, character, and canon-policy skills",
-    "longDescription": "Workspace-local plugin that adds a /using-novel entrypoint, direct novel lane commands, and shared references for Chinese webnovel outline, plot, character, and canon maintenance workflows.",
-    "developerName": "Local Workspace",
+    "displayName": "Novel Driver",
+    "shortDescription": "Route Chinese webnovel work across outline, plot, character, and canon-policy skills",
+    "longDescription": "Installable plugin that adds a /using-novel entrypoint, direct novel lane commands, and shared references for Chinese webnovel outline, plot, character, and canon maintenance workflows.",
+    "developerName": "Novel Driver Contributors",
     "category": "Writing",
     "capabilities": [
       "Interactive",
@@ -35,8 +35,8 @@
       "Use /novel-character to build or refine a character card from my story notes"
     ],
     "brandColor": "#8C4A2F",
-    "composerIcon": "./assets/novel-skills.svg",
-    "logo": "./assets/novel-skills.svg",
+    "composerIcon": "./assets/novel-driver.svg",
+    "logo": "./assets/novel-driver.svg",
     "screenshots": []
   }
 }
