@@ -1,4 +1,4 @@
 interface:
-  display_name: "Novel Character Card Coach"
-  short_description: "Extract and refine evidence-grounded webnovel character cards, relationships, arcs, and rosters."
-  default_prompt: "Use $novel-character-card-coach to build or refine character material from my story notes."
+  display_name: "小说人物卡教练"
+  short_description: "从故事资料中提炼人物卡、关系卡、人物弧线和人物总表。"
+  default_prompt: "使用 $novel-character-card-coach 根据我的故事资料整理或强化人物卡。"

@@ -1,6 +1,6 @@
 ---
-description: "Route directly to the novel outline skill for premise, outline, volume plan, or worldbuilding work."
+description: "直接进入小说大纲技能，用于题材前提、大纲、卷纲和世界观工作。"
 disable-model-invocation: true
 ---
-Invoke the `novel-driver:novel-outline-coach` skill and follow it exactly as presented to you.
-If the user did not include a concrete outline task, ask what premise, outline, volume, or worldbuilding problem they want to solve first.
+调用 `novel-driver:novel-outline-coach` 技能，并严格遵循该技能。
+如果用户没有提供具体大纲任务，询问他们想先解决前提、大纲、卷纲还是世界观问题。

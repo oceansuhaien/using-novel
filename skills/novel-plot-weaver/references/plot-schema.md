@@ -1,86 +1,85 @@
-# Plot Schema
+# 剧情资料结构
 
-Use this file when deciding where confirmed plot material should live under `.novel-skill/plot/`.
+用于决定已确认剧情材料应写入 `plot/` 的哪个文件。
 
-## Directory Contract
+## 目录契约
 
 ```text
-.novel-skill/
-  plot/
-    mainline.md
-    hidden-threads.md
-    foreshadowing.md
-    beats.md
-    volume-hooks.md
+plot/
+  mainline.md
+  hidden-threads.md
+  foreshadowing.md
+  beats.md
+  volume-hooks.md
 ```
 
-## File Responsibilities
+## 文件职责
 
 ### `mainline.md`
 
-Store only stable mainline information:
+只存稳定主线信息：
 
-- story-stage objective
-- visible conflict
-- opposition force
-- mainline progression chain
-- major irreversible turns
+- 故事阶段目标。
+- 可见冲突。
+- 对抗力量。
+- 主线推进链。
+- 重大不可逆转折。
 
-Do not dump every brainstorm branch here.
+不要把每个脑暴分支都倒进这里。
 
 ### `hidden-threads.md`
 
-Store:
+存放：
 
-- hidden agendas
-- delayed reveals
-- pressure lines running beneath the visible plot
-- how each hidden thread eventually collides with the mainline
+- 隐藏动机。
+- 延迟揭示。
+- 可见剧情下方的压力线。
+- 每条暗线最终如何撞上主线。
 
-For each thread, prefer this shape:
+每条暗线优先使用：
 
-- thread name
-- current hidden state
-- reveal trigger
-- reveal window
-- impact on mainline
+- 暗线名称。
+- 当前隐藏状态。
+- 揭示触发条件。
+- 揭示窗口。
+- 对主线的影响。
 
 ### `foreshadowing.md`
 
-Store:
+存放：
 
-- what is being planted
-- where it is planted
-- what future payoff it prepares
-- what conditions must be met before payoff
-- whether it is already paid off
+- 埋下什么。
+- 埋在哪里。
+- 准备什么未来回收。
+- 回收前必须满足什么条件。
+- 是否已经回收。
 
-Prefer table-like scanability over prose walls.
+优先表格化，避免长段散文。
 
 ### `beats.md`
 
-Store:
+存放：
 
-- major beats
-- escalation points
-- reversals
-- fallout
-- beat-to-beat causal links
+- 主要剧情节点。
+- 升级点。
+- 反转。
+- 后果。
+- 节点之间的因果承接。
 
-Use this file when the user is discussing "what happens next" more than "what the story means overall."
+当用户讨论“接下来发生什么”多于“故事整体意味着什么”时，用这个文件。
 
 ### `volume-hooks.md`
 
-Store:
+存放：
 
-- current volume goal
-- end-of-volume explosion
-- unresolved question handed to next volume
-- hook promise for the next stage
+- 当前卷目标。
+- 卷末爆点。
+- 交给下一卷的未解问题。
+- 下一阶段钩子承诺。
 
-## Routing Rules
+## 路由规则
 
-- Stable high-level overview still belongs in `.novel-skill/summary.md`.
-- Temporary, unconfirmed possibilities belong in `.novel-skill/inbox/`.
-- Chapter-specific observations belong in `.novel-skill/chapters/notes/`.
-- If a conclusion is still blocked by a character fact not yet confirmed, note the dependency instead of upgrading it into plot canon.
+- 稳定高层概览仍属于 `summary.md`。
+- 临时、未确认可能性属于 `inbox/`。
+- 章节级观察属于 `chapters/notes/`。
+- 如果结论被未确认人物事实卡住，标注依赖，不要升级成剧情 canon。

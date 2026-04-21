@@ -1,9 +1,9 @@
 {
   "name": "novel-driver",
   "version": "0.3.0",
-  "description": "Installable Codex plugin for Chinese webnovel outline, plot, character, and canon-policy workflows.",
+  "description": "面向中文网文大纲、剧情、人物和 canon 维护流程的 Codex 插件。",
   "author": {
-    "name": "Novel Driver Contributors"
+    "name": "Novel Driver 贡献者"
   },
   "license": "MIT",
   "keywords": [
@@ -19,9 +19,9 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Novel Driver",
-    "shortDescription": "Route Chinese webnovel work across outline, plot, character, and canon-policy skills",
-    "longDescription": "Installable plugin that adds a /using-novel entrypoint, direct novel lane commands, and shared references for Chinese webnovel outline, plot, character, and canon maintenance workflows.",
-    "developerName": "Novel Driver Contributors",
+    "shortDescription": "把中文网文任务分流到大纲、剧情、人物和 canon 规则技能",
+    "longDescription": "可安装插件，提供 /using-novel 总入口、小说专项命令，以及中文网文大纲、剧情、人物、canon 维护所需的共享参考规则。",
+    "developerName": "Novel Driver 贡献者",
     "category": "Writing",
     "capabilities": [
       "Interactive",
@@ -29,10 +29,10 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use /using-novel to route this story task",
-      "Use /novel-outline to turn this idea into an outline and plot spine",
-      "Use /novel-plot to repair this arc and strengthen the hooks",
-      "Use /novel-character to build or refine a character card from my story notes"
+      "使用 /using-novel 为这个故事任务选择合适技能",
+      "使用 /novel-outline 把这个点子整理成大纲和主线骨架",
+      "使用 /novel-plot 修复这条剧情弧线并加强钩子",
+      "使用 /novel-character 根据我的故事笔记制作或优化人物卡"
     ],
     "brandColor": "#8C4A2F",
     "composerIcon": "./assets/novel-driver.svg",

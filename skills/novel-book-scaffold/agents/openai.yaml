@@ -1,0 +1,4 @@
+interface:
+  display_name: "小说项目脚手架"
+  short_description: "在 test/books 下创建 novel-driver 单本书工作区。"
+  default_prompt: "使用 $novel-book-scaffold 为我的小说创建一个 test/books 工作区。"

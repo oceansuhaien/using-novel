@@ -13,7 +13,7 @@ $pluginJson = Join-Path $PluginRoot ".codex-plugin\plugin.json"
 if (-not (Test-Path $pluginJson)) {
     Add-Error "Missing .codex-plugin/plugin.json"
 } else {
-    $raw = Get-Content -Raw -LiteralPath $pluginJson
+    $raw = Get-Content -Raw -Encoding UTF8 -LiteralPath $pluginJson
     try {
         $plugin = $raw | ConvertFrom-Json
         if ($plugin.name -ne "novel-driver") { Add-Error "plugin.json name must be novel-driver" }
@@ -42,7 +42,7 @@ if (-not (Test-Path $skillsRoot)) {
             Add-Error "Missing SKILL.md in $($dir.Name)"
             continue
         }
-        $text = Get-Content -Raw -LiteralPath $skillFile
+        $text = Get-Content -Raw -Encoding UTF8 -LiteralPath $skillFile
         if ($text -notmatch "(?s)^---\s*\nname:\s*.+?\ndescription:\s*.+?\n---") {
             Add-Error "Invalid or missing frontmatter in $($dir.Name)"
         }
@@ -58,11 +58,21 @@ if (-not (Test-Path $skillsRoot)) {
 $commandsRoot = Join-Path $PluginRoot "commands"
 if (Test-Path $commandsRoot) {
     foreach ($command in Get-ChildItem -LiteralPath $commandsRoot -Filter "*.md") {
-        $text = Get-Content -Raw -LiteralPath $command.FullName
-        if ($text -notmatch 'Invoke the `novel-driver:') {
+        $text = Get-Content -Raw -Encoding UTF8 -LiteralPath $command.FullName
+        if ($text -notmatch 'novel-driver:') {
             Add-Error "Command $($command.Name) does not dispatch to a novel-driver skill"
         }
     }
+}
+
+$legacyStoryStatePattern = [regex]::Escape(".novel") + [regex]::Escape("-skill")
+$legacyNovelSkillRefs = Get-ChildItem -LiteralPath $skillsRoot -Recurse -File |
+    Where-Object {
+        (Get-Content -Raw -Encoding UTF8 -LiteralPath $_.FullName) -match $legacyStoryStatePattern
+    }
+
+foreach ($file in $legacyNovelSkillRefs) {
+    Add-Error "Legacy hidden story-state directory reference remains in $($file.FullName.Substring($PluginRoot.Length + 1))"
 }
 
 if ($errors.Count -gt 0) {

@@ -1,31 +1,31 @@
-# Evidence Levels
+# 证据等级
 
-Use evidence labels to prevent invention from becoming canon.
+使用证据标签，避免临时创意被误写成 canon。
 
-## Confirmed Fact
+## 已确认事实
 
-Use for material explicitly stated by the user or already established in durable project files.
+用户明确说过，或已经存在于稳定项目文件中的材料。可以写入对应的小说架构文件。
 
-## Strong Inference
+## 强推断
 
-Use for material derived from multiple confirmed facts without changing their meaning. Strong inferences can guide organization, but should be marked as inference when they affect identity, motivation, relationships, world rules, or plot causality.
+由多个已确认事实自然推出，且不改变原意的结论。涉及身份、动机、关系、世界规则、剧情因果时，要标注为推断。
 
-## Pending Decision
+## 待确认
 
-Use for gaps where the user must choose before the material can become stable canon.
+缺少用户拍板，或仍有多个方向会显著改变故事的内容。只能列为问题、备选或待定项。
 
-## Suggestion
+## 建议
 
-Use for optional creative strengthening. Suggestions must not be written as confirmed facts.
+用于创作强化的可选方案。建议不能写成已确认事实，除非用户确认采用。
 
-## Conflict Handling
+## 冲突处理
 
-When sources conflict, prefer this order:
+资料冲突时按以下优先级判断：
 
-1. The user's latest explicit instruction.
-2. User-named files or passages for this task.
-3. `.novel-skill/summary.md`.
-4. Domain-specific `.novel-skill/` files.
-5. Temporary chat fragments and raw inbox notes.
+1. 用户本轮最新明确指令。
+2. 用户点名要求参考的文件或片段。
+3. `summary.md`。
+4. 领域专属小说架构文件。
+5. 临时聊天片段和 `inbox/` 原始灵感。
 
-If the latest confirmed direction clearly supersedes older material, update the older material and mention the basis. If not, list the conflict and ask the smallest useful question.
+如果最新确认方向已经清楚覆盖旧资料，更新旧资料并说明依据。如果不能判断，列出冲突并问最小必要问题。

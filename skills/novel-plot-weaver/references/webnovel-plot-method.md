@@ -1,68 +1,68 @@
-# Webnovel Plot Method
+# 网文剧情检查法
 
-Use this file when checking whether a plot idea is viable for Chinese webnovel serialization rather than only sounding interesting in isolation.
+用于判断一个剧情点是否适合中文网文连载，而不只是孤立看起来有趣。
 
-## Core Checks
+## 核心检查
 
-Before expanding any plot line, check:
+展开任何剧情线前先问：
 
-- what reader promise it serves
-- what repeatable scene engine it creates
-- what conflict it escalates
-- what payoff it delays
-- what new problem it creates after payoff
+- 它服务哪个读者承诺？
+- 它创造什么可重复场景引擎？
+- 它升级什么冲突？
+- 它延迟什么回报？
+- 回报之后会制造什么新问题？
 
-If a plot element has no engine, no escalation, and no delayed payoff, it is probably decoration.
+如果一个剧情元素没有引擎、没有升级、没有延迟回报，多半只是装饰。
 
-## Mainline Checks
+## 主线检查
 
-A usable mainline usually has:
+可用主线通常具备：
 
-- a visible short-term target
-- a deeper conflict beneath that target
-- a force actively resisting progress
-- a reason the protagonist cannot simply ignore it
-- a way this line can keep generating scenes across many chapters
+- 可见的短期目标。
+- 目标背后的更深冲突。
+- 主动阻止推进的力量。
+- 主角不能无视它的理由。
+- 能跨多章持续生成场景的机制。
 
-## Hidden-Thread Checks
+## 暗线检查
 
-A hidden thread is worth keeping only if:
+暗线值得保留的条件：
 
-- it changes how an earlier event will later be reinterpreted
-- it will eventually collide with a visible plot line
-- its reveal changes stakes, not just information
+- 它会改变读者后来对早期事件的理解。
+- 它最终会撞上可见主线。
+- 揭示后改变的是利害关系和风险，而不只是信息量。
 
-Hidden threads that never affect the mainline usually become clutter.
+永远不影响主线的暗线通常会变成噪音。
 
-## Foreshadowing Checks
+## 伏笔检查
 
-Good foreshadowing should answer:
+好伏笔要回答：
 
-- why plant it now
-- why readers can notice it without fully decoding it
-- why the later payoff will feel earned instead of random
+- 为什么现在埋？
+- 为什么读者能注意到但不能完全解码？
+- 为什么未来回收会显得应得，而不是随机？
 
-Do not stack many high-profile foreshadowing points in one place unless the user explicitly wants a dense mystery texture.
+除非用户明确想做密集悬疑质感，不要在同一位置堆太多高亮伏笔。
 
-## Reversal Checks
+## 反转检查
 
-A reversal should do more than surprise.
+反转不只是惊讶。
 
-After the reversal, ask:
+反转后要问：
 
-- what gets worse now
-- what previous belief becomes unstable
-- what new urgent decision appears
+- 现在什么变得更糟？
+- 哪个旧认知开始不稳？
+- 哪个新的紧急决定出现？
 
-If the story does not become more dangerous, tighter, or more emotionally loaded after the twist, the twist is likely weak.
+如果反转后故事没有更危险、更紧、更有情绪负载，这个反转可能偏弱。
 
-## Volume Hook Checks
+## 卷钩子检查
 
-A strong volume hook usually leaves one of these pressures:
+强卷钩子通常留下至少一种压力：
 
-- the protagonist gained something costly
-- a larger enemy finally noticed the protagonist
-- a hidden truth is close enough to smell but still blocked
-- one solved problem opened a bigger disaster
+- 主角得到某物，但代价很大。
+- 更大的敌人终于注意到主角。
+- 隐藏真相已经近在眼前，但仍被挡住。
+- 一个已解决问题打开更大的灾难。
 
-Volume hooks should pull the reader into the next stage, not merely stop at a loud moment.
+卷钩子要把读者拉进下一阶段，而不是只停在一个响亮场面。

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Novel Plot Weaver"
-  short_description: "Refine webnovel plot material into mainlines, beats, hidden threads, foreshadowing, hooks, and reversals."
-  default_prompt: "Use $novel-plot-weaver to refine my webnovel plot into confirmed mainlines, hidden threads, foreshadowing, and story beats."
+  display_name: "小说剧情织线师"
+  short_description: "把剧情灵感整理成主线、暗线、伏笔、反转、节点和卷钩子。"
+  default_prompt: "使用 $novel-plot-weaver 帮我修剧情、埋伏笔、加强节点和卷钩子。"

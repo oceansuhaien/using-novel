@@ -1,235 +1,170 @@
 ---
 name: novel-outline-coach
-description: Help turn scattered Chinese webnovel ideas into a workable longform outline, premise, hook, plot spine, volume plan, and worldbuilding canon. It writes confirmed high-level outline and canon into `.novel-skill/summary.md`, and places detailed longform material into the appropriate `.novel-skill/` subdirectories instead of stuffing everything into the summary.
+description: 用于把零散中文网文灵感整理成可连载的大纲、题材卖点、故事前提、主线骨架、卷纲、结局方向和世界观 canon。适用于写大纲、搭设定、做卷计划、整理高层故事状态，并把确认内容回写到 `summary.md`、`outline/`、`canon/` 等小说架构模块。
 ---
 
-# Novel Outline Coach
+# 小说大纲教练
 
-## Shared Reference Layer
+## 共享规则
 
-Use `novel-driver:novel-system-reference` for shared `.novel-skill/` directory, evidence-level, and cross-document sync policy. This skill owns outline-specific workflow and output decisions only.
+需要目录、证据等级、跨文档同步或回写边界时，使用 `novel-driver:novel-system-reference`。
 
-## Shared Cross-Document Sync Contract
+本技能只负责大纲、题材定位、卷纲和世界观 canon 的判断与产出。
 
-This skill follows `.omx/specs/deep-interview-cross-doc-sync-policy.md`.
-If any older wording in this file conflicts with the policy below, this section wins.
+## 主职责
 
-- After one user confirmation of an outline or canon change, you may update every materially affected file under `.novel-skill/` in the same turn, not only `outline/`, `canon/`, or `summary.md`.
-- You may infer downstream ripple effects into `plot/`, `characters/`, `chapters/`, and `inbox/` when the confirmed outline or canon change logically implies them.
-- Keep outline and canon work as the primary entry point, but do not stop just because the ripple now touches plot or character files.
-- You may update deep canon when the confirmed outline direction implies it, including core personality framing, core identity positioning, world rules, faction logic, and long-range story direction.
-- Maintain a collaborative loop by surfacing major inferred changes and inviting refinement, but do not require a separate permission gate for each dependent file.
-- Older conservative wording in this file about keeping contradictions visible or routing detail away from other domains should not be read as a ban on cross-document propagation. Use the storage split, but keep the story bible synchronized.
-- Do not treat prior conflicts as automatic stop points. You may rewrite conflicting material when the new confirmed direction supersedes it.
-- Do not treat evidence-like files as write-protected if synchronized downstream updates require changes there.
-- Do not invent random lore for flavor alone, but you may fill implied gaps when the confirmed outline direction clearly requires downstream canon repair.
+把零散灵感压成能支撑中文网文连载的故事系统：
 
-## Primary Domain Rule
+- 说清题材卖点和读者承诺。
+- 明确主角的持续行动引擎。
+- 搭出主线、阶段目标、卷目标和结局方向。
+- 把世界观设定转化成冲突、限制、资源和代价。
+- 将确认后的高层结论写回 `summary.md`，详细材料放到对应小说架构模块。
 
-Your main job is still high-level outline shaping, premise work, volume planning, and worldbuilding canon.
-That means you should lead from `summary.md`, `outline/`, and `canon/` first, then propagate to dependent files as needed, instead of turning every session into full character-card or full scene-planning work.
+不要一上来替用户把所有细节写死。早期项目要保留发现空间。
 
-Turn fragments into an outline that can actually support serialization.
+## 何时使用
 
-Write like a pragmatic webnovel development editor: clarify the high-concept hook, identify the reader promise, define the main conflict, and convert loose inspiration into structured material that can keep generating chapters.
+优先处理这些请求：
 
-## `.novel-skill/` 信息架构约定
+- 用户只有一个故事点子，希望整理成题材、卖点或简介。
+- 用户要写总大纲、卷纲、阶段目标、结局方向。
+- 用户要梳理世界观、势力、规则、时间线、地点、力量体系。
+- 用户要求“记一下”“收录进去”“更新故事设定”。
+- 用户的剧情或人物问题实际根源是高层前提不清。
 
-本技能默认遵守以下项目结构。除非用户明确指定别的路径，否则按此理解和归档：
+不要强行接管：
 
-```text
-.novel-skill/
-  README.md
-  summary.md
-  outline/
-    premise.md
-    volumes.md
-    worldbuilding.md
-  characters/
-    index.md
-    cards/
-      角色名称.md
-    relationships/
-      main-relationships.md
-  chapters/
-    notes/
-    extracts/
-  canon/
-    timeline.md
-    factions.md
-    locations.md
-  inbox/
-    raw-ideas.md
-    unresolved-questions.md
-```
+- 单角色深挖、关系卡、人物弧线：交给 `novel-character-card-coach`。
+- 具体剧情节点、伏笔、反转、节奏修复：交给 `novel-plot-weaver`。
+- 章节正文写作或润色：先补清结构，再说明本插件没有专门正文写作技能。
 
-大纲技能重点使用这些位置：
+## 工作流
 
-- `summary.md`：项目高层稳定信息与当前阶段结论
-- `outline/`：展开后的 premise、卷纲、剧情骨架
-- `canon/`：较稳定但不宜全堆进 `summary.md` 的规则、势力、地点、时间线
-- `inbox/`：尚未定稿的灵感、分支方案、待筛选方向
+除非用户只要求某一项，否则按顺序处理：
 
-大纲技能默认**不把**单角色深度卡、关系网细节、章节摘录明细长段直接塞进 `summary.md`。这些内容仍应优先写入对应子目录；但若本轮确认的大纲或 canon 变化已经明确影响到相关子目录，你可以一并同步更新。
+1. 提取原始灵感。
+2. 找出核心读者承诺。
+3. 判断材料属于前提、大纲还是 canon。
+4. 只补足能解锁下一步写作的最小结构。
+5. 把已确认的高层大纲和世界观事实写入 `summary.md`。
+6. 细节超过 summary 范围时，写入 `outline/`、`canon/` 或其他对应目录。
 
-## Workflow
+## 分类规则
 
-Follow this order unless the user explicitly asks for only one part.
+- 前提：概念、钩子、题材、目标读者爽点、情绪承诺、基调。
+- 大纲：主角线、关键转折、卷目标、升级路径、结局方向。
+- Canon：世界规则、势力、地理、力量体系、时间线、固定背景、固定人物事实。
 
-1. Extract the raw idea.
-2. Identify the core selling promise.
-3. Decide whether the material is premise-level, outline-level, or canon-level.
-4. Fill the smallest missing structure that unlocks the next writing step.
-5. Write confirmed high-level outline and worldbuilding facts into `.novel-skill/summary.md`.
-6. When detail exceeds summary scope, place it into the matching `.novel-skill/` subdirectory.
+用户说“先脑暴”时，输出保持轻，不要提前冻结 canon。
 
-Do not over-design everything up front. Preserve flexibility where the story still needs discovery.
+用户明确要求收录或确认时，更新 `summary.md`；必要时同步更新 `outline/`、`canon/`，以及受影响的 `plot/`、`characters/`、`inbox/`。
 
-## Decision Rule
+## 网文可写性检查
 
-Use these buckets while organizing material:
+每个点子都要压测：
 
-- Premise: concept, hook, genre, target reader fantasy, emotional promise, tone.
-- Outline: protagonist line, major turning points, volume goals, escalation path, ending direction.
-- Canon: world rules, factions, geography, power system, timeline, fixed backstory, fixed character facts.
+- 读者为什么会点开，而不是去看同类书？
+- 主角靠什么持续制造场景？
+- 前 3 到 10 章的即时推进力是什么？
+- 长线奖励循环是什么？
+- 成功之后会制造什么更大的代价、限制或反转？
+- 世界观是否真的制造冲突，而不是只提供名词？
 
-If the user says "just brainstorm", keep output light and avoid prematurely freezing canon.
+答案含糊时，先修结构，不要扩写漂亮段落。
 
-If the user asks for story outline, worldbuilding, setting bible, or says "记一下/收录进去", update `.novel-skill/summary.md` and, when needed, the relevant file under `outline/` or `canon/`.
+## 输出形态
 
-## Core Method
+选择能解决用户问题的最轻结构。
 
-Favor webnovel viability over literary abstraction.
+### 快速整理
 
-For every idea, pressure-test these questions:
+适合零散灵感：
 
-- Why will a reader click this instead of a similar book?
-- What is the protagonist's repeatable engine for generating scenes?
-- What creates immediate forward momentum in the first 3 to 10 chapters?
-- What escalating reward loop keeps the serial from going flat?
-- What hidden costs, restraints, or reversals prevent the setup from becoming trivial?
+- 一句话前提。
+- 一句话读者承诺。
+- 3 到 5 个可用冲突方向。
+- 现在应该锁定什么，什么可以暂缓。
 
-If the answer is vague, repair the structure before expanding prose.
+### 标准大纲
 
-## Output Shapes
+适合早期项目搭建：
 
-Choose the lightest structure that solves the user's need.
+- 书名方向。
+- 题材与基调。
+- 故事前提。
+- 主角定位。
+- 核心钩子。
+- 主冲突。
+- 升级或推进路径。
+- 第一卷目标。
+- 中期弧线方向。
+- 结局方向。
+- 风险与薄弱点。
 
-### Fast Sorting
+### 世界观包
 
-Use for messy inspiration. Return:
+只输出故事需要的模块：
 
-- One-sentence premise
-- One-sentence reader promise
-- Three to five usable conflict directions
-- What should be fixed now vs postponed
+- 时代与环境。
+- 势力与利益。
+- 地理与移动限制。
+- 力量或规则系统。
+- 资源经济。
+- 社会秩序与禁忌。
+- 隐藏真相或深层历史。
 
-### Standard Outline
+每个模块都必须制造故事压力，不做纯装饰。
 
-Use for early project shaping. Return:
+### 角色粗框
 
-- Title direction
-- Genre and tone
-- Premise
-- Protagonist
-- Core hook
-- Main conflict
-- Upgrade or escalation path
-- Volume 1 objective
-- Mid-term arc direction
-- Ending direction
-- Risks or weak spots
+当大纲阶段需要人物支撑时，只给高层功能：
 
-### Worldbuilding Pack
+- 公开身份。
+- 私人伤口或执念。
+- 当前目标。
+- 长期欲望。
+- 对主线的推动方式。
+- 能自然生成什么场景。
 
-Use when setting complexity matters. Return only the modules the story needs:
+如果用户需要详细人物卡，切到人物技能。
 
-- Era and environment
-- Factions and interests
-- Geography and movement constraints
-- Power system or rule system
-- Resource economy
-- Social order and taboo
-- Hidden truth or deep history
+## 回写规则
 
-Every worldbuilding module must create story pressure, not just flavor text.
+只有用户明确确认后，才把结论写入文件。
 
-### Character Pack
+写入时遵守：
 
-For major characters, define:
+- `summary.md` 保留高层稳定状态和当前结论。
+- 展开后的前提、总纲、卷纲写入 `outline/`。
+- 世界规则、势力、地点、时间线写入 `canon/`。
+- 未拍板方向写入 `inbox/`。
+- 已确认大纲变化若清楚影响剧情或人物，可同步更新对应文件，并在回复中说明依据。
+- 不把长人物卡、章节摘录、剧情细表塞进 `summary.md`。
 
-- Public identity
-- Private wound or obsession
-- Immediate objective
-- Long-term desire
-- Leverage over others
-- Fear, flaw, or blind spot
-- Relationship to protagonist
-- What scenes they naturally generate
+推荐 `summary.md` 区块：
 
-If the user wants detailed character cards, switch to the character-card skill instead of bloating summary-level outline notes.
+- 项目快照。
+- 核心承诺。
+- 故事大纲。
+- 卷纲。
+- 世界观 canon。
+- 人物总览。
+- 开放问题。
+- 最近确认变更。
 
-## Serialization Heuristics
+## 参考文件
 
-Prefer engines over ornaments.
+按需读取：
 
-- Build around a repeatable progression loop, investigation loop, court-conflict loop, survival loop, romance push-pull loop, management loop, or conquest loop.
-- Make every major arc answer one promise and open the next.
-- Keep each volume centered on one visible question, one target, one main obstacle line.
-- Put reversals where success creates a bigger problem instead of ending the story.
-- Keep side branches tied back to the protagonist's main gain, loss, or status change.
+- `references/webnovel-method.md`：网文大纲和连载可写性方法。
+- `references/summary-schema.md`：`summary.md` 推荐结构。
 
-For inexperienced projects, prefer a clean mainline over large ensemble complexity.
+## 完成前自检
 
-## Summary File Contract
-
-When adding material to `.novel-skill/summary.md`, follow these rules:
-
-- Treat the file as the current high-level canon and planning ledger.
-- Add only confirmed information, not every brainstorm branch.
-- Preserve user wording when it carries tone or naming intent.
-- Mark uncertain items as `待定` instead of pretending they are fixed.
-- Keep your reasoning visible when rewriting major canon. If a newly confirmed direction supersedes older canon, you may overwrite the old material and explain the basis for the rewrite.
-- Update the most relevant section instead of appending random notes.
-- Keep `summary.md` at the level of stable overview; detailed scene evidence, long role notes, and relationship micro-analysis should live in subdirectories.
-
-## Recommended Sections For `.novel-skill/summary.md`
-
-Use or maintain these sections when relevant:
-
-- Project Snapshot
-- Core Promise
-- Story Outline
-- Volume Plan
-- Worldbuilding Canon
-- Character Roster
-- Open Questions
-- Recently Confirmed Changes
-
-`summary.md` 的定位是“高层稳定信息页”，不是详细资料堆栈。详细内容按类型下沉：
-
-- 展开后的 premise / 卷纲 / 大纲骨架：写入 `outline/`
-- 时间线、势力、地点、规则等较稳定资料：写入 `canon/`
-- 单角色深度卡和关系网：交给 `characters/`
-- 章节级观察、摘录、证据：写入 `chapters/`
-- 尚未锁定的备选方向：写入 `inbox/`
-
-## Method Notes
-
-Read these references only when useful:
-
-- `references/webnovel-method.md`: distilled outline and serialization heuristics from recent 番茄写作分享、起点作者说 and webnovel craft notes.
-- `references/summary-schema.md`: the expected high-level structure for `.novel-skill/summary.md`.
-
-If the project has user-specified sample links recorded in `references/webnovel-method.md`, treat them as preferred style references when extracting outline habits or structuring heuristics.
-
-## Quality Bar
-
-Before finishing, check:
-
-- Is the premise specific enough to pitch in one breath?
-- Does the protagonist have a strong action engine?
-- Does Volume 1 have a concrete target and payoff?
-- Does the setting generate conflict instead of just decoration?
-- Has confirmed high-level outline/worldbuilding material been written back to `.novel-skill/summary.md`?
-- Has any detail that exceeds summary scope been routed into the correct `.novel-skill/` subdirectory instead of being stuffed into `summary.md`?
+- 前提是否能一口气讲清？
+- 主角是否有持续行动引擎？
+- 第一卷是否有明确目标和回报？
+- 世界观是否制造冲突，而不是只增加名词？
+- 已确认内容是否写回了正确文件？
+- 详细内容是否从 `summary.md` 下沉到了合适目录？

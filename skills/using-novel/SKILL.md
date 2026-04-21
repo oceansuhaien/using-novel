@@ -1,177 +1,130 @@
 ---
 name: using-novel
-description: Use when starting a novel-development conversation or when the user wants one entrypoint that auto-routes Chinese webnovel work across outline, plot, and character skills. Trigger phrases include /using-novel, "outline", "plot", "story beats", "volume plan", "character card", "relationship card", "worldbuilding", and mixed requests that combine these domains.
+description: 用于开始中文网文创作对话，或把混合的小说需求自动分流到建书脚手架、大纲、剧情、人物、共享资料规则等技能。触发场景包括 /using-novel、创建新书工作区、补齐小说目录结构、写大纲、梳理剧情、设计爽点/伏笔/卷纲、做人设卡/关系卡、整理世界观，以及同时涉及多个创作域的请求。
 ---
 
 <SUBAGENT-STOP>
-If you were dispatched as a subagent to execute a bounded slice, skip this skill unless the leader explicitly asked you to route novel work.
+如果你是被主代理派出的子任务代理，除非主代理明确要求你负责小说技能分流，否则跳过本技能。
 </SUBAGENT-STOP>
 
 <IMPORTANT>
-If the user's request is about Chinese webnovel planning, plot shaping, worldbuilding canon, or character-card synthesis, route to the correct novel skill before doing domain work yourself.
-
-If more than one novel skill applies, sequence them deliberately. Do not run them in parallel because they commonly read and write the same `.novel-skill/` canon.
+当用户在做中文网文的建书准备、大纲、剧情、世界观、人物卡或故事资料归档时，先路由到合适的 `novel-driver` 技能，再开展具体创作工作。
+多个小说技能同时适用时，按顺序执行，不要并行。它们通常会读写同一套单本书工作区资料。
 </IMPORTANT>
 
-# Using Novel
+# 小说技能入口
+## 作用
 
-## Purpose
+本技能是 `novel-driver` 插件的总入口。它只负责判断任务该交给哪个小说技能，不替代具体技能做完整创作。
 
-This is the router entrypoint for the local `novel-driver` plugin.
+可路由到：
+- `novel-driver:novel-book-scaffold`：创建或修复单本书工作区、补齐 `test/books/<book-id>/` 目录结构、准备开发/示例/测试夹具。
+- `novel-driver:novel-outline-coach`：大纲、题材定位、卖点、卷纲、世界观与高层 canon。
+- `novel-driver:novel-plot-weaver`：主线、暗线、伏笔、反转、节奏、剧情节点、卷钩子。
+- `novel-driver:novel-character-card-coach`：人物卡、关系卡、人物弧光、动机、身份、人物资料归档。
+- `novel-driver:novel-system-reference`：目录契约、证据等级、跨文档同步与回写边界。
 
-Use it to decide whether the request belongs to:
+共享目录、证据等级、同步策略只放在 `novel-system-reference`，不要在本入口重复维护细节。
 
-- `novel-driver:novel-outline-coach`
-- `novel-driver:novel-plot-weaver`
-- `novel-driver:novel-character-card-coach`
-- `novel-driver:novel-system-reference` for shared directory, evidence, and sync policy
+## 路由优先级
 
-Or whether the request should move through a combination of those skills in a fixed order.
+1. 用户明确点名的技能优先。
+2. 用户使用 `/using-novel` 时，自动判断意图并分流。
+3. 用户请求跨多个领域时，按下方组合规则排队执行。
+4. 缺少信息但不影响路由时，不要先盘问，直接进入最合适的技能。
 
-Shared `.novel-skill/` directory, evidence, and cross-document sync policy lives in `novel-driver:novel-system-reference`. Do not duplicate those rules here.
+## 快速分类
 
-## Routing Priority
-
-Respect these priorities:
-
-1. User explicit request wins.
-2. If the user explicitly names one skill, use that skill.
-3. If the user invokes `/using-novel`, classify the intent and route automatically.
-4. If the user mixes domains, use the combination rules below.
-
-## Skill Registry
-
-### `novel-driver:novel-outline-coach`
-
-Use for:
-
-- premise, hook, selling point, genre, tone
-- longform outline, volume plan, ending direction
-- worldbuilding canon, setting bible, factions, rules
-- high-level story structure that should be written back to `.novel-skill/summary.md`, `outline/`, or `canon/`
-
-### `novel-driver:novel-plot-weaver`
-
-Use for:
-
-- plot mainline, hidden threads, foreshadowing, reversals
-- scene-chain logic, beats, phase goals, volume hooks
-- progression repair when the story has momentum or payoff problems
-- consolidating confirmed plot conclusions into `.novel-skill/plot/`
-
-### `novel-driver:novel-character-card-coach`
-
-Use for:
-
-- character cards, relationship cards, roster sheets
-- character motives, identity, dramatic function, arc pressure
-- evidence-driven extraction of character facts from existing `.novel-skill/` materials
-- organizing confirmed character material into `.novel-skill/characters/`
-
-### `novel-driver:novel-system-reference`
-
-Use as a support reference for:
-
-- `.novel-skill/` directory and file placement policy
-- confirmed fact, strong inference, pending decision, and suggestion labels
-- cross-document propagation rules shared by outline, plot, and character workflows
-
-Do not route user-facing creative work to this skill by itself unless the user asks about plugin policy or file organization.
-
-## Quick Classification
-
-Map the user's request with the lightest valid interpretation:
-
-| User intent | Route |
+| 用户意图 | 路由 |
 | --- | --- |
-| "I have a story idea" / "help me shape the premise" / "build the outline" | `novel-outline-coach` |
-| "help me fix the plot" / "design beats" / "bury foreshadowing" | `novel-plot-weaver` |
-| "make a character card" / "sort relationships" / "refine this character" | `novel-character-card-coach` |
-| "build the whole project from idea to roles" | combination flow |
-| "write polished prose/chapter text" | closest prep skill first, then explain there is no dedicated prose-writing skill in this plugin yet |
+| “先给这本书建个项目”“创建小说工作区”“补齐目录结构”“做个 demo/test book” | `novel-book-scaffold` |
+| “我有个点子”“帮我搭大纲”“做卷纲/世界观” | `novel-outline-coach` |
+| “修剧情”“设计节点”“埋伏笔”“做反转”“这一段推进不动” | `novel-plot-weaver` |
+| “做人设卡”“梳理人物关系”“这个角色立不住” | `novel-character-card-coach` |
+| “从想法到大纲、剧情、人物一起搭” | 组合流程 |
+| “目录怎么收”“哪些能回写”“这算不算 canon” | `novel-system-reference` |
+| “写正文/润色章节” | 先用最接近的筹备技能补清结构，再说明本插件暂未提供专门正文写作技能 |
 
-## Combination Rules
+## 组合规则
 
-When multiple domains are involved, use these orders:
+### 先搭工作区再创作
 
-### Idea -> story system
+当用户要“从零开始一本书”，并且请求里明确包含创建本地工作区、测试书、示例书或补齐缺失目录时：
 
-If the request is still high-level and unstable:
+1. `novel-book-scaffold`
+2. `novel-outline-coach`
+3. 视用户后续目标继续进入 `novel-plot-weaver` 或 `novel-character-card-coach`
+
+原因：先把单本书目录契约落稳，后续技能才能把内容回写到正确位置。
+
+### 从想法到故事系统
+
+当请求仍处在高层构思阶段：
 
 1. `novel-outline-coach`
 2. `novel-plot-weaver`
 3. `novel-character-card-coach`
 
-Reason: premise and canon should stabilize before plot details, and plot pressure should stabilize before character-card formalization.
+原因：先稳定题材、卖点和基础 canon，再细化剧情压力，最后把人物卡定型。
 
-### Outline + plot
-
-Use:
+### 大纲 + 剧情
 
 1. `novel-outline-coach`
 2. `novel-plot-weaver`
 
-### Plot + character
+### 剧情 + 人物
 
-Default to:
+默认顺序：
 
 1. `novel-plot-weaver`
 2. `novel-character-card-coach`
 
-Exception:
-If the user's real blocker is a character identity or motivation gap, reverse the order and start with `novel-character-card-coach`.
+例外：如果真正卡住的是人物身份、动机或关系定位，先用 `novel-character-card-coach`。
 
-### Outline + character
-
-Default to:
+### 大纲 + 人物
 
 1. `novel-outline-coach`
 2. `novel-character-card-coach`
 
-### Existing canon sync after one domain update
+### 单域确认后的联动同步
 
-If a skill confirms a change and its own workflow allows cross-document propagation, let that skill update related `.novel-skill/` files in the same turn. Do not force a second skill just because the ripple touches another folder.
+如果一个技能已经确认了某个改动，并且该改动清晰影响其他小说架构文件，就让当前技能按自己的同步规则一并更新。不要因为影响到另一个目录就机械切换技能。
 
-## Execution Rules
+## 执行要求
 
-After deciding the route:
+1. 用一句话说明将使用哪个技能或技能顺序，以及原因。
+2. 调用选定技能并遵守该技能。
+3. 如果组合流程还有下一步，等当前技能完成后再进入下一技能。
+4. 不要把完整技能分类表先讲给用户；先路由，再工作。
 
-1. Briefly announce which skill or skill sequence you are using and why.
-2. Invoke the selected skill.
-3. Follow that skill exactly.
-4. If a later skill in the sequence is still needed after the first one finishes, invoke it next.
+## 何时提问
 
-Do not front-load a full taxonomy to the user. Route first, then work.
+只有在缺失信息会改变路由，或阻止当前技能做出可靠结果时才提问。
 
-## Ambiguity Gate
+合适的问题：
+- “你现在是想先把这本书的工作区搭起来，还是直接在现有书籍目录里做大纲？”
+- “这次更想先解决人物卡，还是剧情反转推进？”
+- “高层设定已经定了吗？如果未定，我会先走大纲技能。”
 
-Ask the user a clarifying question only when the missing detail changes the route itself or blocks the chosen skill from doing quality work.
+不合适的做法：
+- 一开始收集所有偏好。
+- 把明确的剧情请求扩展成大访谈。
+- 因为可能还有上下文就拒绝路由。
 
-Good examples:
+## 兜底
 
-- "You want either a character card or a plot twist repair, which one is the real blocker right now?"
-- "Are we still fixing the high-level premise, or is the premise locked and only the volume beats are drifting?"
+如果请求不是建书脚手架、大纲、剧情、人物或资料规则：
+- 没有小说技能适用时，直接正常回答。
+- 仍属于故事开发但没有专门技能时，交给最接近的小说筹备技能，并说明边界。
 
-Bad examples:
+## 自检
 
-- asking for every preference up front
-- turning a clear plot request into a broad interview
-- refusing to route because more context might exist
+发现以下倾向时立刻纠正：
 
-## Fallback
+- “这同时涉及剧情和人物，所以我自己全做。”
+- “只要提到世界观，就一定是大纲技能。”
+- “用户要先建书，所以后面的大纲需求先不管。”
+- “用户要正文，所以小说插件没用。”
+- “并行跑大纲和人物会更快。”
 
-If the request is not primarily outline, plot, or character work:
-
-- answer normally if no novel skill applies
-- or hand off to the nearest novel-prep skill when the user is still doing story development but lacks a dedicated prose or chapter-writing workflow
-
-## Red Flags
-
-Stop and correct course if you notice these thoughts:
-
-- "This touches both plot and character, so I should do everything myself."
-- "The request mentions worldbuilding once, so it must be outline work."
-- "The user wants chapter prose, so the routing plugin is useless."
-- "I can run outline and character in parallel to save time."
-
-The correct response is deliberate routing, not skipping the skills.
+正确做法是有意识地路由，而不是跳过技能。

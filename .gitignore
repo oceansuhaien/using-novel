@@ -11,6 +11,8 @@ Desktop.ini
 # Local Codex and plugin state
 .agents/
 .codex/
+.omx/
+.omc/
 
 # Temporary and backup files
 *.log

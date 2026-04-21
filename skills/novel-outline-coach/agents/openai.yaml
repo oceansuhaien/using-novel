@@ -1,4 +1,4 @@
 interface:
-  display_name: "Novel Outline Coach"
-  short_description: "Turn scattered webnovel ideas into a workable premise, outline, volume plan, and canon structure."
-  default_prompt: "Use $novel-outline-coach to turn my scattered webnovel ideas into a usable outline and keep the canon updated."
+  display_name: "小说大纲教练"
+  short_description: "把零散网文灵感整理成前提、卖点、大纲、卷纲和世界观 canon。"
+  default_prompt: "使用 $novel-outline-coach 把我的小说灵感整理成可用大纲，并维护高层设定。"

@@ -1,21 +1,21 @@
-# Cross-Document Sync Policy
+# 跨文档同步策略
 
-When the user confirms a change in one novel domain, update every materially affected `.novel-skill/` file in the same turn if the implication is clear.
+当用户确认某个小说领域的关键变化，且它对其他小说架构文件的影响很明确时，可以在同一轮同步更新所有受影响文件。
 
-## Allowed Propagation
+## 允许联动
 
-- Outline changes may propagate into plot, character, canon, chapter notes, inbox, and summary files.
-- Plot changes may propagate into outline, character, canon, chapter notes, inbox, and summary files.
-- Character changes may propagate into plot, outline, canon, chapter notes, inbox, and summary files.
+- 大纲变化可以同步到剧情、人物、canon、章节笔记、inbox 和 `summary.md`。
+- 剧情变化可以同步到大纲、人物、canon、章节笔记、inbox 和 `summary.md`。
+- 人物变化可以同步到剧情、大纲、canon、章节笔记、inbox 和 `summary.md`。
 
-## Boundaries
+## 边界
 
-- Keep the active skill's domain as the entrypoint. Do not turn a plot task into a full character-card task unless the user asks or the blocker requires it.
-- Do not invent lore for flavor. Fill gaps only when the confirmed direction clearly requires downstream repair.
-- Do not require a separate permission gate for every dependent file when the user has already confirmed the governing change.
-- Surface major inferred changes in the response so the user can correct course.
-- If a conflict changes the user's task intent or cannot be resolved from the confirmed direction, ask a focused question before writing.
+- 当前技能仍是入口。剧情任务不要无故变成完整人物卡任务，除非用户要求或人物缺口阻塞剧情。
+- 不为气氛随意发明设定。只有确认方向清楚要求下游修补时，才补足隐含缺口。
+- 用户已经确认统领性变化后，不必为每个受影响文件单独索要许可。
+- 输出时说明主要推断和联动修改，让用户有机会纠偏。
+- 如果冲突会改变任务意图，或无法从确认方向解决，先问一个聚焦问题。
 
-## Writeback Rule
+## 回写规则
 
-Write stable conclusions to the narrowest durable location. Mirror only concise high-level consequences into `summary.md`.
+稳定结论写入最窄、最匹配的长期文件。只把高层后果摘要同步到 `summary.md`。

@@ -1,23 +1,31 @@
 ---
 name: novel-system-reference
-description: Shared reference for the novel-driver plugin. Use when a novel skill needs the common `.novel-skill/` directory contract, evidence levels, cross-document sync policy, writeback boundaries, or source-of-truth rules that apply across outline, plot, and character workflows.
+description: 中文网文技能的共享参考。用于需要小说架构契约、证据等级、跨文档同步策略、回写边界、事实来源优先级时；供大纲、剧情、人物技能引用，不作为默认创作入口。
 ---
 
-# Novel System Reference
+# 小说系统参考
 
-This is a shared reference skill, not the default user-facing entrypoint.
+本技能是 `novel-driver` 的共享规则层，不是面向用户的默认创作入口。
 
-Use it when a novel task needs common policy that applies across:
+当小说任务涉及以下问题时读取本技能或它的参考文件：
 
-- `novel-driver:using-novel`
-- `novel-driver:novel-outline-coach`
-- `novel-driver:novel-plot-weaver`
-- `novel-driver:novel-character-card-coach`
+- 小说架构资料应该如何组织。
+- 什么能写成已确认 canon，什么只能写成推断、待定或建议。
+- 一个领域确认后，是否可以同步更新其他目录。
+- `summary.md` 与详细子目录之间如何分工。
 
-## Read Only What You Need
+## 按需读取
 
-- Directory and file placement: `references/directory-contract.md`
-- Cross-document propagation: `references/sync-policy.md`
-- Fact, inference, and uncertainty handling: `references/evidence-levels.md`
+- 目录与文件位置：`references/directory-contract.md`
+- 证据等级与冲突处理：`references/evidence-levels.md`
+- 跨文档同步策略：`references/sync-policy.md`
 
-Do not paste the full reference into user responses. Apply the relevant policy and cite the affected file paths when useful.
+不要把完整参考文件粘贴给用户。只应用相关规则，并在需要时说明受影响路径。
+
+## 共享原则
+
+- `summary.md` 只放高层稳定状态，不堆长人物卡、章节摘录或剧情细表。
+- 详细资料写入最窄且最匹配的子目录。
+- 已确认改动如果清楚影响其他文件，可以在同一轮同步修正。
+- 建议、推断和待确认问题必须显式标注，不能伪装成事实。
+- 当新确认方向覆盖旧资料时，可以重写旧资料，但要说明依据。
