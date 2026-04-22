@@ -75,8 +75,24 @@ foreach ($file in $legacyNovelSkillRefs) {
     Add-Error "Legacy hidden story-state directory reference remains in $($file.FullName.Substring($PluginRoot.Length + 1))"
 }
 
+$genScript = Join-Path $PluginRoot "scripts\generate-readme.ps1"
+if (Test-Path $genScript) {
+    $pwshExe = if (Get-Command pwsh -ErrorAction SilentlyContinue) { "pwsh" }
+               elseif (Get-Command powershell -ErrorAction SilentlyContinue) { "powershell" }
+               else { $null }
+
+    if ($pwshExe) {
+        & $pwshExe -NoProfile -ExecutionPolicy Bypass -File $genScript -PluginRoot $PluginRoot -Check | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            Add-Error "README.md is out of sync with commands/ or skills/. Run scripts/generate-readme.ps1 to regenerate."
+        }
+    } else {
+        Add-Error "Neither pwsh nor powershell found; cannot verify README.md is in sync."
+    }
+}
+
 if ($errors.Count -gt 0) {
-    $errors | ForEach-Object { Write-Error $_ }
+    $errors | ForEach-Object { Write-Host "ERROR: $_" }
     exit 1
 }
 

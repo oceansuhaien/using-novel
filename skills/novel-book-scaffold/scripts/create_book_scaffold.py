@@ -55,7 +55,19 @@ def render_files(title: str) -> dict[str, str]:
 
 状态：脚手架草稿
 
+## 核心主旨
+
+贯穿全书的思想与价值母题（Theme，作者价值观层）。与"核心承诺"分栏维护。
+
+- 主旨一句话：待定
+- 反命题：待定
+- 结局如何回应：兑现 / 反证 / 留白（待定）
+- 承载主旨的主要剧情压力：待定
+- 状态：草稿
+
 ## 核心承诺
+
+读者市场/情绪层的承诺。与"核心主旨"区分开。
 
 待定。
 
@@ -77,9 +89,10 @@ def render_files(title: str) -> dict[str, str]:
 
 ## 开放问题
 
+- 核心主旨是否已有一句话，并写出了反命题？
 - 核心读者承诺是什么？
 """,
-        "outline/premise.md": "# 故事前提\n\n待定。\n",
+        "outline/premise.md": "# 故事前提\n\n## 核心主旨\n\n贯穿全书的思想与价值母题。summary.md 只放一句话与反命题，本文件用于展开主旨的长论述、与主线的咬合点、结局回应方式等。\n\n待定。\n\n## 故事前提\n\n待定。\n",
         "outline/volumes.md": "# 卷纲\n\n待定。\n",
         "outline/worldbuilding.md": "# 世界观大纲\n\n待定。\n",
         "plot/mainline.md": "# 剧情主线\n\n待定。\n",

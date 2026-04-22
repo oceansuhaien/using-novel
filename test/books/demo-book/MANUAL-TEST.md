@@ -16,17 +16,35 @@ powershell -ExecutionPolicy Bypass -File .\scripts\quick-validate.ps1
 powershell -ExecutionPolicy Bypass -File .\scripts\sync-to-codex-skills.ps1 -TargetRoot C:\path\to\skills-mirror -Apply
 ```
 
-## 1. 进入测试书籍根目录
+## 1. 选择测试入口目录
+
+你有两种等价的起会话方式，任选其一：
+
+**方式 A：在插件仓库根启动（推荐，用于开发插件时）**
+
+直接在仓库根发起会话：
 
 ```powershell
-Set-Location C:\person\code\novel-driver\test\books\demo-book
+Set-Location d:\code\uncompany\using-novel
+```
+
+`using-novel` 的「开工前预检」会识别 cwd 为插件仓库根（同时存在 `AGENTS.md` 与 `skills/using-novel/SKILL.md`），自动进入**测试模式**，并把本次会话的书籍根默认指向 `test/books/demo-book/`（前提是 `demo-book` 满足强判据：`summary.md` + `outline/` + `plot/` + `characters/` 同时存在）。
+
+要求：
+- 回答开头应出现一句类似"检测到插件仓库根，进入测试模式，目标书籍根 `test/books/demo-book/`"的声明。
+- 如果你想换成 `test/books/` 下的另一本书，直接在请求里指明 book-id。
+- 任何回写都必须落在 `test/books/<book-id>/` 之内，不得落到仓库根或 `skills/`、`commands/` 等插件目录。
+
+**方式 B：直接进入测试书籍根（旧流程，仍可用）**
+
+```powershell
+Set-Location d:\code\uncompany\using-novel\test\books\demo-book
 ```
 
 要求：
-
-- 当前工作目录必须是书籍根目录。
+- 预检应识别 cwd 为书籍根（强判据命中），进入**正式模式**。
 - 后续所有小说技能都从这里发起。
-- 回写目标应落在当前目录下，而不是插件仓库根目录。
+- 回写目标必须落在当前目录下。
 
 ## 2. 路由测试
 

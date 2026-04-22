@@ -1,6 +1,6 @@
 ---
 name: novel-book-scaffold
-description: 用于为 novel-driver 开发、示例、测试夹具或单本书故事工作区，在 `test/books/` 下创建或修复本地中文网文项目脚手架。
+description: 用于创建新的单本书工作区、从零开始一本书、搭建 demo/test 书、补齐缺失的小说目录结构，在 `test/books/<book-id>/` 下创建或修复本地中文网文项目脚手架；也适用于 `novel-driver` 自身的开发、示例或测试夹具准备。
 ---
 
 # 小说项目脚手架
