@@ -51,6 +51,7 @@ uv run python scripts/create_book_scaffold.py "药王" --root C:\person\code\小
 test/books/<book-id>/
   README.md
   summary.md
+  context.md
   outline/
     premise.md
     volumes.md
@@ -77,12 +78,17 @@ test/books/<book-id>/
     unresolved-questions.md
 ```
 
+
 ## 创建后
 
 - 后续小说工作应以书籍根目录为工作目录。
 - 高层稳定状态写入 `summary.md`。
+- 多轮确认后的关键上下文、冲突、覆盖依据与待确认问题写入 `context.md`。
+- `context.md` 不是剧情细表，也不是人物卡；详细资料仍写入对应子目录。
+- 回到 `using-novel` 或大纲、剧情、人物技能后，应优先读取 `context.md` 与 `summary.md`。
 - 大纲、剧情、人物、章节、canon、inbox 资料写入对应子目录。
 - 不要覆盖已有书籍文件，除非用户明确要求。
+
 
 ## 常见错误
 

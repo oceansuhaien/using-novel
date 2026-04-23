@@ -13,12 +13,15 @@ description: 中文网文技能的共享参考。用于需要小说架构契约�
 - 什么能写成已确认 canon，什么只能写成推断、待定或建议。
 - 一个领域确认后，是否可以同步更新其他目录。
 - `summary.md` 与详细子目录之间如何分工。
+- 多轮讨论后的关键确认、冲突、覆盖历史应该如何记录。
 
 ## 按需读取
 
 - 目录与文件位置：`references/directory-contract.md`
 - 证据等级与冲突处理：`references/evidence-levels.md`
 - 跨文档同步策略：`references/sync-policy.md`
+- 上下文决策日志协议：`references/context-log-protocol.md`
+
 
 不要把完整参考文件粘贴给用户。只应用相关规则，并在需要时说明受影响路径。
 

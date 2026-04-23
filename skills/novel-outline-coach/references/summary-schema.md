@@ -1,38 +1,8 @@
 # `summary.md` 推荐结构
 
-`summary.md` 应长期保持“高层稳定信息页”的定位。
+`summary.md` 应长期保持"高层稳定信息页"的定位——只保存当前项目最重要、最稳定、最需要快速回看的内容。详细人物卡、关系网、章节摘录、长篇设定展开应下沉到对应小说架构模块。
 
-它只保存当前项目最重要、最稳定、最需要快速回看的内容。详细人物卡、关系网、章节摘录、长篇设定展开，应下沉到对应小说架构模块。
-
-## 推荐目录
-
-```text
-summary.md
-outline/
-  premise.md
-  volumes.md
-  worldbuilding.md
-plot/
-  mainline.md
-  hidden-threads.md
-  foreshadowing.md
-  beats.md
-  volume-hooks.md
-characters/
-  index.md
-  cards/
-  relationships/
-chapters/
-  notes/
-  extracts/
-canon/
-  timeline.md
-  factions.md
-  locations.md
-inbox/
-  raw-ideas.md
-  unresolved-questions.md
-```
+整体目录契约见 `novel-driver:novel-system-reference/references/directory-contract.md`；本文件只负责 `summary.md` 内部的区块模板。
 
 ## 推荐区块
 
@@ -141,12 +111,8 @@ inbox/
 
 - YYYY-MM-DD：记录本次新增或修改的设定。
 
+这里记录的是最终高层结果，不展开冲突过程。多轮确认、覆盖依据和未解决分歧应写入 `context.md`。
+
 ### 归档提示
 
-- `outline/`：展开后的 premise、卷纲、详细大纲。
-- `plot/`：主线、暗线、伏笔、节点、卷钩子。
-- `characters/cards/`：单角色深度卡。
-- `characters/relationships/`：关系网、关系演化。
-- `chapters/notes/` 与 `chapters/extracts/`：章节观察、证据摘录。
-- `canon/`：时间线、势力、地点、规则等稳定资料。
-- `inbox/`：原始灵感、临时堆料、未拍板问题。
+超出 `summary.md` 范围的细节按 `novel-driver:novel-system-reference/references/directory-contract.md` 落盘：展开大纲进 `outline/`，剧情细表进 `plot/`，人物卡进 `characters/`，稳定背景 canon 进 `canon/`，章节观察进 `chapters/`，未拍板灵感进 `inbox/`。
