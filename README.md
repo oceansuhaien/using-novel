@@ -137,6 +137,13 @@ pwsh -File ./scripts/sync-to-codex-skills.ps1 -TargetRoot /path/to/skills-mirror
 
 无论哪种方式，测试小说写作都在 `test/books/<book-id>/` 下进行。手测步骤见 `test/books/demo-book/MANUAL-TEST.md`。
 
+单本书工作区默认包含两份高层入口文件：
+
+- `summary.md`：高层稳定结论。
+- `context.md`：多轮确认后的关键上下文、冲突状态、覆盖依据与待确认问题。
+
+`context.md` 只记录决策和冲突，不展开完整协议正文；具体规则由 `novel-system-reference` 维护。
+
 ## 非目标
 
 - 这不是故事项目仓库。

@@ -11,3 +11,5 @@ Use these cases to check `novel-driver:using-novel`.
 | Plot plus character | "This betrayal beat depends on whether the mentor really cares about the protagonist." | `novel-plot-weaver`, or `novel-character-card-coach` first if motivation is the blocker | Decide whether plot causality or character motive is the active blocker. |
 | Prose request | "Write the polished chapter scene." | Nearest prep skill only if planning is needed | Explain that prose drafting is not a dedicated plugin lane yet. |
 | Evidence-sensitive | "Do not invent facts. Sort only what is already in the files." | Relevant domain skill with evidence discipline | Use confirmed fact / inference / pending labels. |
+| Context carry-over | "Continue from the last confirmed direction and do not reopen decisions unless there is a conflict." | Relevant domain skill via `using-novel` | Read `context.md` first and continue from current effective conclusions. |
+
