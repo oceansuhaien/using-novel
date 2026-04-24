@@ -26,3 +26,12 @@ Desktop.ini
 # Python cache
 __pycache__/
 *.pyc
+
+# books: 仅跟踪 back-to-2008 与 demo-book，其余 books/ 下直接子目录均忽略
+books/*
+!books/back-to-2008/
+!books/back-to-2008/**
+!books/demo-book/
+!books/demo-book/**
+
+#test examples
