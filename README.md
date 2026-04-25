@@ -41,7 +41,7 @@ git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
 | `/novel-character` | 直接进入小说人物技能，用于人物卡、关系卡、人物弧线和人物总表。 |
 | `/novel-outline` | 直接进入小说大纲技能，用于题材前提、大纲、卷纲和世界观工作。 |
 | `/novel-plot` | 直接进入小说剧情技能，用于剧情节点、悬念、反转、伏笔和推进修复。 |
-| `/using-novel` | 把小说开发请求分流到建书脚手架、大纲、剧情、人物或共享规则技能。用法：/using-novel 先帮我创建一本新书工作区，再整理成可连载大纲。 |
+| `/using-novel` | 把小说开发请求分流到建书脚手架、大纲、剧情、人物或共享规则技能，并在当前技能完成后继续检查是否需要补齐相关设定与落盘。用法：/using-novel 先帮我创建一本新书工作区，再整理成可连载大纲。 |
 <!-- END:COMMANDS -->
 
 ## 技能
