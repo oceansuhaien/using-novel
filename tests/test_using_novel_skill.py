@@ -55,6 +55,14 @@ class UsingNovelSkillContractTests(unittest.TestCase):
         self.assertIn("自动检查人物一致性", content)
         self.assertIn("首次出场", content)
         self.assertIn("明显转换", content)
+        self.assertIn("章节级执行证据", content)
+
+    def test_skill_declares_scene_writer_must_leave_chapter_level_execution_evidence(self):
+        content = SKILL_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("正文链路的执行留痕", content)
+        self.assertIn("章节级执行证据", content)
+        self.assertIn("不在这里维护完整审计模板", content)
 
     def test_skill_declares_test_mode_current_book_config_priority(self):
         content = SKILL_PATH.read_text(encoding="utf-8")

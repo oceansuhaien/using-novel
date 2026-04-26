@@ -107,6 +107,25 @@ Set-Location d:\code\uncompany\using-novel\test\books\demo-book
 - 关系内容写入 `characters/relationships/main-relationships.md` 或同级关系文件。
 - 高层结论可以同步到 `summary.md`，但不要把整张人物卡塞进去。
 
+### 2.5 `/novel-scene` 正文执行审计
+
+示例提示词：
+
+```text
+/novel-scene 基于当前项目资料，扩写一个“新角色第一次上桌参与谈话”的短场景，并确保读者能快速识别他是谁。
+```
+
+重点检查：
+
+- 正文结果本身不要默认附一大段审计报告。
+- 技能规约要求这次正文生成后留下章节级执行证据，默认应落在 `chapters/notes/`。
+- 审计记录里至少应能回答：
+  - 这次是否触发了首次出场 / 识别锚点检查。
+  - 为什么判定需要或不需要补介绍。
+  - 读取了哪些上下文文件。
+  - 是否触发了人物或剧情补救链路。
+- `context.md` 与 `summary.md` 不应被整段执行审计污染；只有形成稳定结论时，才允许摘要式同步。
+
 ## 3. 增量更新测试
 
 先手工补一点已有内容，例如给 [premise.md](C:/person/code/novel-driver/test/books/demo-book/outline/premise.md) 和 [summary.md](C:/person/code/novel-driver/test/books/demo-book/summary.md) 写两三行设定，再重复执行一次相关技能。
