@@ -28,11 +28,11 @@ powershell -ExecutionPolicy Bypass -File .\scripts\sync-to-codex-skills.ps1 -Tar
 Set-Location d:\code\uncompany\using-novel
 ```
 
-`using-novel` 的「开工前预检」会识别 cwd 为插件仓库根（同时存在 `AGENTS.md` 与 `skills/using-novel/SKILL.md`），自动进入**测试模式**，并把本次会话的书籍根默认指向 `test/books/demo-book/`（前提是 `demo-book` 满足强判据：`summary.md` + `outline/` + `plot/` + `characters/` 同时存在）。
+`using-novel` 的「开工前预检」会识别 cwd 为插件仓库根（同时存在 `AGENTS.md` 与 `skills/using-novel/SKILL.md`），自动进入**测试模式**。当用户没有显式指定 `book-id` 时，它会先读取 `test/current-book.yaml`；只有配置文件不存在时，才回退到 `test/books/demo-book/`（前提是 `demo-book` 满足强判据：`summary.md` + `outline/` + `plot/` + `characters/` 同时存在）。如果配置文件存在但无效时，应停下来提示，而不是静默改写到 `demo-book`。
 
 要求：
-- 回答开头应出现一句类似"检测到插件仓库根，进入测试模式，目标书籍根 `test/books/demo-book/`"的声明。
-- 如果你想换成 `test/books/` 下的另一本书，直接在请求里指明 book-id。
+- 回答开头应出现一句类似"检测到插件仓库根，进入测试模式，目标书籍根 `test/books/demo-book/`"或对应配置书籍根的声明。
+- 如果你想临时换成 `test/books/` 下的另一本书，直接在请求里指明 book-id；显式请求优先于 `test/current-book.yaml`。
 - 任何回写都必须落在 `test/books/<book-id>/` 之内，不得落到仓库根或 `skills/`、`commands/` 等插件目录。
 
 **方式 B：直接进入测试书籍根（旧流程，仍可用）**

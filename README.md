@@ -41,7 +41,8 @@ git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
 | `/novel-character` | 直接进入小说人物技能，用于人物卡、关系卡、人物弧线和人物总表。 |
 | `/novel-outline` | 直接进入小说大纲技能，用于题材前提、大纲、卷纲和世界观工作。 |
 | `/novel-plot` | 直接进入小说剧情技能，用于剧情节点、悬念、反转、伏笔和推进修复。 |
-| `/using-novel` | 把小说开发请求分流到建书脚手架、大纲、剧情、人物或共享规则技能，并在当前技能完成后继续检查是否需要补齐相关设定与落盘。用法：/using-novel 先帮我创建一本新书工作区，再整理成可连载大纲。 |
+| `/novel-scene` | 直接进入小说正文场景技能，用于按剧情扩写正文、润色去 AI 味、改对白和修过渡。 |
+| `/using-novel` | 把小说开发请求分流到建书脚手架、大纲、剧情、人物、正文场景或共享规则技能，并在当前技能完成后继续强制检查书籍目录相关文件是否需要补齐与落盘。凡是写剧情、续写、扩写、润色、改写或推进剧情，都必须判断人物卡、关系卡、剧情节点、伏笔记录、`summary.md`、`context.md` 等是否需要同步。用法：/using-novel 先帮我创建一本新书工作区，再整理成可连载大纲。 |
 <!-- END:COMMANDS -->
 
 ## 技能
@@ -53,6 +54,7 @@ git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
 | `novel-character-card-coach` | 用于中文网文的人物卡、关系卡、人物总表、人物弧线、秘密、动机、身份与人物资料归档。适用于"做人设卡""梳理人物关系""这个角色立不住""人物动机对不上"等人物向请求；可从小说架构资料的大纲、章节、已有人物和灵感材料中证据驱动地提炼，标注待确认，用户确认后回写人物资料。 |
 | `novel-outline-coach` | 用于把零散中文网文灵感整理成可连载的大纲、核心主旨（Theme/母题/中心思想）、题材卖点、故事前提、主线骨架、卷纲、结局方向和世界观 canon。适用于提炼全书贯穿的主旨与价值母题、写大纲、搭设定、做卷计划、整理高层故事状态，并把确认内容回写到 `summary.md`、`outline/`、`canon/` 等小说架构模块。 |
 | `novel-plot-weaver` | 用于把中文网文剧情灵感整理成可推进的主线、暗线、伏笔、反转、阶段目标、卷钩子和剧情节点。适用于修剧情、设计桥段、埋伏笔、加强爽点、处理节奏断裂、锁定故事推进，并在用户确认后把稳定剧情结论写回 `plot/` 等小说架构模块。 |
+| `novel-scene-writer` | 用于根据用户给出的中文网文剧情梗概、片段、场景目标或半成稿正文，扩写成可读正文，或做去 AI 味润色、改写、续写、压句、对白校正、动作神态补强与过渡修复。适用于“我写了个剧情你帮我扩成正文”“这段太像 AI 写的”“帮我检查对白像不像这个人物会说的话”“把这一段写顺一点并提高张力”等正文向请求；默认先读取 `context.md`、`summary.md`，必要时再读 `plot/` 与 `characters/`，在不擅改主线设定的前提下服务当前场景。 |
 | `novel-system-reference` | 中文网文技能的共享参考。用于需要小说架构契约、证据等级、跨文档同步策略、回写边界、事实来源优先级时；供大纲、剧情、人物技能引用，不作为默认创作入口。 |
 <!-- END:SKILLS -->
 
@@ -135,7 +137,7 @@ pwsh -File ./scripts/sync-to-codex-skills.ps1 -TargetRoot /path/to/skills-mirror
 
 2. **不镜像，让 AI 直接读仓库里的 `SKILL.md`**。在仓库根启动会话，依托 `AGENTS.md` 的「Skill 回退策略」条款，AI 会把 `./skills/<name>/SKILL.md` 当作技能规约读取并执行。这种模式下 `/using-novel` 被降级为"请按 `skills/using-novel/SKILL.md` 的路由方法论工作"的语义触发。
 
-无论哪种方式，测试小说写作都在 `test/books/<book-id>/` 下进行。手测步骤见 `test/books/demo-book/MANUAL-TEST.md`。
+无论哪种方式，测试小说写作都在 `test/books/<book-id>/` 下进行。`using-novel` 在插件仓库根进入测试模式时，选书优先级为：显式 `book-id` > 配置文件 > `demo-book`。默认配置文件是 `test/current-book.yaml`；如果它不存在，才回退到 `test/books/demo-book/`；如果它存在但无效，则会停下来提示，而不会静默切回 `demo-book`。手测步骤见 `test/books/demo-book/MANUAL-TEST.md`。
 
 单本书工作区默认包含两份高层入口文件：
 

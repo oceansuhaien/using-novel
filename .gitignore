@@ -10,6 +10,7 @@ Desktop.ini
 
 # Local Codex and plugin state
 .agents/
+.claude/
 .codex/
 .omx/
 .omc/

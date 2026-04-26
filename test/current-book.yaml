@@ -1,0 +1,3 @@
+# using-novel 测试模式默认书籍配置
+# 仅在插件仓库根触发 using-novel 且用户未显式指定 book-id 时使用
+book_id: 真理会
