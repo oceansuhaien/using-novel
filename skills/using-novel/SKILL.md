@@ -31,6 +31,8 @@ description: 用于开始中文网文创作对话，或把混合的小说需求�
 3. 用户请求跨多个领域时，按下方"组合规则"排队执行，不要并行。
 4. 缺少信息但不影响路由时，不要先盘问，直接进入最合适的技能。
 
+## 注意！！！这很重要，如果找不到技能，可在当前项目根目录下的skills文件夹下面加载技能，加载失败不要进行下一步！！！，/using-novel 需要调用skill才可以工作！！！
+
 ## 开工前预检（强制）
 
 在把任务交给任何一个小说子技能（`novel-outline-coach`、`novel-plot-weaver`、`novel-character-card-coach`、`novel-scene-writer`、`novel-system-reference`）之前，必须先判断当前工作目录属于哪一种环境。未完成预检前禁止进入子技能，也禁止向任何目录写回小说资料。
