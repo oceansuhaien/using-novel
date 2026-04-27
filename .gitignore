@@ -39,3 +39,6 @@ test/books/*
 
 #uv
 .uv-cache/
+
+#codebuddy
+.codebuddy/
