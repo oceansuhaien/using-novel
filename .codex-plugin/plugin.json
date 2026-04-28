@@ -1,33 +1,20 @@
 {
   "name": "novel-driver",
-  "version": "0.3.0",
-  "description": "面向中文网文大纲、剧情、人物和 canon 维护流程的 Codex 插件。",
+  "version": "0.4.0",
+  "description": "面向中文网文创作流程的 Codex 插件（含草稿版本系统、角色驱动场景生成）。",
   "author": {
     "name": "Novel Driver 贡献者"
   },
   "license": "MIT",
-  "keywords": [
-    "novel",
-    "webnovel",
-    "outline",
-    "plot",
-    "character",
-    "canon",
-    "driver",
-    "workflow"
-  ],
+  "keywords": ["novel","webnovel","outline","plot","character","canon","draft","workflow"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Novel Driver",
-    "shortDescription": "把中文网文任务分流到大纲、剧情、人物和 canon 规则技能",
-    "longDescription": "可安装插件，提供 /using-novel 总入口、小说专项命令，以及中文网文大纲、剧情、人物、canon 维护所需的共享参考规则。",
+    "shortDescription": "把中文网文任务分流到大纲、剧情、人物、草稿版本管理和场景生成技能",
+    "longDescription": "可安装插件，提供 /using-novel 总入口、小说专项命令，以及中文网文大纲、剧情、人物、草稿版本系统和角色驱动场景生成所需的技能。",
     "developerName": "Novel Driver 贡献者",
     "category": "Writing",
-    "capabilities": [
-      "Interactive",
-      "Read",
-      "Write"
-    ],
+    "capabilities": ["Interactive","Read","Write"],
     "defaultPrompt": [
       "使用 /using-novel 为这个故事任务选择合适技能",
       "使用 /novel-outline 把这个点子整理成大纲和主线骨架",

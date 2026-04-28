@@ -52,6 +52,7 @@ git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
 | --- | --- |
 | `novel-book-scaffold` | 用于创建新的单本书工作区、从零开始一本书、搭建 demo/test 书、补齐缺失的小说目录结构，在 `test/books/<book-id>/` 下创建或修复本地中文网文项目脚手架；也适用于 `novel-driver` 自身的开发、示例或测试夹具准备。 |
 | `novel-character-card-coach` | 用于中文网文的人物卡、关系卡、人物总表、人物弧线、秘密、动机、身份与人物资料归档。适用于"做人设卡""梳理人物关系""这个角色立不住""人物动机对不上"等人物向请求；可从小说架构资料的大纲、章节、已有人物和灵感材料中证据驱动地提炼，标注待确认，用户确认后回写人物资料。 |
+| `novel-draft-system` | 小说草稿版本系统的共享协议。用于约束所有小说资产（大纲/人物卡/剧情节点/场景正文/角色状态等）的草稿层写入、版本链命名、三层查询顺序、finalize 定稿、rollback 回滚、状态回写流程；供 using-novel、novel-book-scaffold、novel-outline-coach、novel-character-card-coach、novel-plot-weaver 以及 novel-scene-* 系列技能引用，不作为默认创作入口。 |
 | `novel-outline-coach` | 用于把零散中文网文灵感整理成可连载的大纲、核心主旨（Theme/母题/中心思想）、题材卖点、故事前提、主线骨架、卷纲、结局方向和世界观 canon。适用于提炼全书贯穿的主旨与价值母题、写大纲、搭设定、做卷计划、整理高层故事状态，并把确认内容回写到 `summary.md`、`outline/`、`canon/` 等小说架构模块。 |
 | `novel-plot-weaver` | 用于把中文网文剧情灵感整理成可推进的主线、暗线、伏笔、反转、阶段目标、卷钩子和剧情节点。适用于修剧情、设计桥段、埋伏笔、加强爽点、处理节奏断裂、锁定故事推进，并在用户确认后把稳定剧情结论写回 `plot/` 等小说架构模块。 |
 | `novel-scene-writer` | 用于根据用户给出的中文网文剧情梗概、片段、场景目标或半成稿正文，扩写成可读正文，或做去 AI 味润色、改写、续写、压句、对白校正、动作神态补强与过渡修复。适用于“我写了个剧情你帮我扩成正文”“这段太像 AI 写的”“帮我检查对白像不像这个人物会说的话”“把这一段写顺一点并提高张力”等正文向请求；默认先读取 `context.md`、`summary.md`，必要时再读 `plot/` 与 `characters/`，在不擅改主线设定的前提下服务当前场景。 |

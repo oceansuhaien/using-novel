@@ -42,3 +42,10 @@ test/books/*
 
 #codebuddy
 .codebuddy/
+
+# Draft system: 版本链历史快照不进 git（量大，靠本地和脚本兜底）
+# drafts/ 主工作区和 .draft-index.yaml 进 git
+**/*.drafts/
+
+# 生成产物：平台清单由脚本生成
+.claude-plugin/
