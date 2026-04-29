@@ -88,11 +88,10 @@ if [[ -d "$ROOT/commands" ]]; then
     done
 fi
 
-# ---- .ps1 残留 ----
+# ---- .ps1 残留（阶段 D 后硬禁止）----
 PS1_COUNT=$(find "$ROOT" -name '*.ps1' -not -path '*/.git/*' | wc -l)
 if (( PS1_COUNT > 0 )); then
-    # 阶段 D 前是 warn，阶段 D 后改成 err
-    warn "${PS1_COUNT} .ps1 file(s) remaining (will be error after phase-d-cleanup)"
+    err "${PS1_COUNT} .ps1 file(s) remaining (PowerShell removed in phase-d-cleanup; use bash)"
 fi
 
 # ---- README 同步 ----

@@ -1,18 +1,27 @@
 # Novel Driver
 
-`novel-driver` 是一个可安装的 Codex 插件，用于中文网文开发流程。
+`novel-driver` 是一个中文网文创作插件，同时支持 **Codex** 和 **Claude Code** 两个环境。
 
-它把大纲、剧情、人物和共享 canon 规则拆成多个聚焦技能，避免把故事工作区误当成插件仓库的一部分。
+它把大纲、剧情筹备、人物、场景写作循环、草稿版本系统等职责拆成多个聚焦技能，每个 `SKILL.md` ≤100 行，由入口 `using-novel` 集中做意图识别与路由。
+
+## 核心特性（V2）
+
+- **草稿版本系统**（`novel-draft-system`）：所有 AI 写入默认落 `drafts/` 草稿层，作者 finalize 才进定稿层。三层查询顺序：工作台 → 版本链快照 → 定稿层。
+- **5 步场景写作循环**：plan-slice（切片规划） → draft（初稿） → polish（润色） → expand（扩写） → rewrite（重写） → finalize（定稿）。
+- **角色驱动**：场景行为从 "环境切片 + 角色状态" 推出，不接受 "让 A 做 B" 的命令式指令；作者用 `@force:` 开后门时需附合理性偏离说明。
+- **意图集中识别**：作者用自然语言表达（polish/expand/rewrite/finalize/rollback），入口路由到对应 skill，不需要记命令。
+- **跨平台单一事实源**：`SKILL.md` frontmatter 是 Codex 和 Claude Code 共用的触发元数据，两份平台清单由脚本生成。
+- **bash 脚本**（不再使用 PowerShell）：Windows 用 Git Bash 或 WSL 执行；Linux/macOS 原生执行。
 
 ## 安装
 
 把仓库克隆到本地插件目录：
 
-```powershell
-git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
+```bash
+git clone <repo-url-or-local-path> /path/to/plugins/novel-driver
 ```
 
-在 marketplace 配置里注册为本地插件源：
+在 marketplace 配置里注册为本地插件源（以 Codex 为例）：
 
 ```json
 {
@@ -21,7 +30,7 @@ git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
       "name": "novel-driver",
       "source": {
         "source": "local",
-        "path": "C:/path/to/plugins/novel-driver"
+        "path": "/path/to/plugins/novel-driver"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -32,6 +41,8 @@ git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
   ]
 }
 ```
+
+Claude Code 环境直接读取 `.claude-plugin/plugin.json`（由脚本生成），见下节"开发"。
 
 ## 命令
 
@@ -60,100 +71,102 @@ git clone <repo-url-or-local-path> C:\path\to\plugins\novel-driver
 | `novel-scene-plan-slice` | 用于在写场景初稿或重写之前，规划要加载哪些角色、哪些字段、哪些环境信息的场景切片清单。适用于"写第 X 章，主角到 YY 地"、"重写这场对峙"、"下一场戏该让谁在场"这类明确要动笔但尚未动笔的场景任务。产出 yaml 形态的切片清单，作为 draft/rewrite 的唯一输入契约。 |
 | `novel-scene-polish` | 用于只改语言、节奏、去 AI 味、对白校正的场景草稿润色。适用于"对白再自然点"、"这段太像 AI 了"、"句子太长了压一压"、"这段读起来拖"这类不改主干事件、只改字句的请求。产出 vNNN-polish.md 到版本链 + 同步工作台。禁止改事件顺序、角色决定、场景结构。 |
 | `novel-scene-rewrite` | 用于允许改事件顺序、角色决定、场景结构的场景重写。适用于"老周不该这么直接，整个对峙段重写"、"这场戏让他不出现试试"、"换个地点重写"、"让她这里拒绝"这类需要改变场景主干的请求。会重跑切片推理，产出 vNNN-rewrite.md 到版本链；不自动覆盖工作台，等作者对比 v(N-1) 和 v(N) 后显式同步。 |
-| `novel-system-reference` | 中文网文技能的共享参考。用于需要小说架构契约、证据等级、跨文档同步策略、回写边界、事实来源优先级时；供大纲、剧情、人物技能引用，不作为默认创作入口。 |
+| `novel-system-reference` | 中文网文技能的共享参考。用于需要小说架构契约、证据等级、跨文档同步策略、回写边界、事实来源优先级时；供大纲、剧情、人物技能引用，不作为默认创作入口。版本历史/草稿/finalize/rollback 等流程协议由 `novel-draft-system` 管理，本技能不重复维护。 |
 <!-- END:SKILLS -->
 
-`using-novel` 是插件内部的分流入口，不出现在上表；只在面向用户的斜杠命令 `/using-novel` 中暴露。
+`using-novel` 是插件内部的入口分流器，只在斜杠命令 `/using-novel` 中暴露，不出现在上表。
 
 ## 仓库结构
 
 ```text
 novel-driver/
-|- .codex-plugin/          插件元数据
-|- assets/                 图标和展示资源
-|- commands/               轻量命令适配层
-|- evals/                  手工回归用例
-|- scripts/                校验和同步脚本
-|- skills/                 技能创作唯一事实来源
-|- AGENTS.md               插件维护规则
-|- CLAUDE.md               Claude 适配入口
-|- README.md               安装和开发说明
+├── .codex-plugin/            Codex 清单（脚本生成）
+├── .claude-plugin/           Claude Code 清单（脚本生成，.gitignore）
+├── assets/                   图标和展示资源
+├── commands/                 斜杠命令适配层（轻量）
+├── docs/plans/               设计文档
+├── evals/                    手工回归用例
+├── scripts/                  bash 校验和同步脚本
+├── skills/                   技能创作唯一事实来源
+├── test/books/<book-id>/     手测书籍工作区
+├── tests/                    Python 单元测试（脚手架脚本等）
+├── AGENTS.md                 插件维护规则
+├── CLAUDE.md                 Claude 适配入口
+├── README.md                 安装和开发说明
 ```
 
 ## 开发
 
-本仓库的脚本基于 PowerShell 7+（`pwsh`），同时保留 Windows 自带 `powershell` 兼容。Linux/macOS 可通过 `brew install powershell` 或 `apt install powershell` 安装。
+所有脚本使用 bash。Windows 通过 Git Bash 或 WSL 执行；Linux/macOS 原生执行。依赖 Python 3（用于解析 yaml 索引与 markdown 区块）。
 
-校验插件结构：
+### 校验插件结构
 
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File .\scripts\quick-validate.ps1
-# Linux / macOS
-pwsh -File ./scripts/quick-validate.ps1
+```bash
+bash scripts/quick-validate.sh
 ```
 
-重新生成 README 中的命令/技能表（新增或修改技能后必跑一次）：
+检查项：plugin.json 完整性 / SKILL.md frontmatter / skill ≤100 行 / reference ≤150 行 / commands 正确路由 / README 与清单同步 / 无 .ps1 残留。
 
-```powershell
-pwsh -File ./scripts/generate-readme.ps1
+### 重新生成 README 命令/技能表
+
+```bash
+bash scripts/generate-readme.sh          # 写回
+bash scripts/generate-readme.sh --check  # 只检测漂移（CI 用）
 ```
 
-只检查 README 是否漂移（不写回，供 CI 使用；`quick-validate.ps1` 也会调用）：
+### 生成两份平台清单（Codex + Claude Code）
 
-```powershell
-pwsh -File ./scripts/generate-readme.ps1 -Check
+```bash
+bash scripts/generate-manifests.sh          # 写回两份
+bash scripts/generate-manifests.sh --check  # 检测漂移
 ```
 
-列出手工评测用例：
+### 列出手工评测用例
 
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File .\scripts\run-evals.ps1
-# Linux / macOS
-pwsh -File ./scripts/run-evals.ps1
+```bash
+bash scripts/run-evals.sh
 ```
 
-预览单向同步到另一个技能目录：
+### 镜像 skills/ 到外部目录（老式分发用）
 
-```powershell
-pwsh -File ./scripts/sync-to-codex-skills.ps1 -TargetRoot /path/to/skills-mirror
+```bash
+bash scripts/sync-to-codex-skills.sh --target /path/to/skills-mirror           # 预览
+bash scripts/sync-to-codex-skills.sh --target /path/to/skills-mirror --apply   # 真执行
 ```
 
-确认执行同步：
-
-```powershell
-pwsh -File ./scripts/sync-to-codex-skills.ps1 -TargetRoot /path/to/skills-mirror -Apply
-```
+Claude Code 原生加载时走 `.claude-plugin/plugin.json` + `.claude-plugin/commands/`（都由 `generate-manifests.sh` 产出），通常不需要此镜像。
 
 ### 在 CodeBuddy / Claude Code 中调试
 
-本仓库以 Codex 插件形态维护，`.codex-plugin/plugin.json` 仅被 Codex 识别。在 CodeBuddy、Claude Code 等非 Codex 环境里想要复用这些技能，二选一：
+CodeBuddy、Claude Code 等非 Codex 环境的加载路径：
 
-1. **镜像到目标环境的 skill 搜索路径**（推荐，可获得原生 skill 体验）。以 CodeBuddy 本地 plugins 目录为例：
+1. **镜像 skills/ 到目标环境的 skill 搜索路径**（得到原生 skill 体验）：
 
-   ```powershell
-   pwsh -File ./scripts/sync-to-codex-skills.ps1 `
-     -TargetRoot "$env:USERPROFILE\.codebuddy\plugins\marketplaces\local\novel-driver\skills" `
-     -Apply
+   ```bash
+   bash scripts/sync-to-codex-skills.sh \
+     --target "$HOME/.codebuddy/plugins/marketplaces/local/novel-driver/skills" \
+     --apply
    ```
 
-   同步后在 CodeBuddy 会话里就能通过 `use_skill using-novel` 等形式触发。
+2. **不镜像，让 AI 直读 `SKILL.md`**：在仓库根启动会话，依托 `AGENTS.md` 的"Skill 回退策略"，AI 会把 `./skills/<name>/SKILL.md` 当作规约读取并执行。
 
-2. **不镜像，让 AI 直接读仓库里的 `SKILL.md`**。在仓库根启动会话，依托 `AGENTS.md` 的「Skill 回退策略」条款，AI 会把 `./skills/<name>/SKILL.md` 当作技能规约读取并执行。这种模式下 `/using-novel` 被降级为"请按 `skills/using-novel/SKILL.md` 的路由方法论工作"的语义触发。
+测试小说写作都在 `test/books/<book-id>/` 下进行。`using-novel` 的**测试模式**选书优先级：**显式 `book-id`** > **`test/current-book.yaml` 配置文件** > **默认 `demo-book`**。配置文件存在但无效时会停下提示，不静默回退到 demo-book。手测步骤见 `test/books/demo-book/MANUAL-TEST.md`。
 
-无论哪种方式，测试小说写作都在 `test/books/<book-id>/` 下进行。`using-novel` 在插件仓库根进入测试模式时，选书优先级为：显式 `book-id` > 配置文件 > `demo-book`。默认配置文件是 `test/current-book.yaml`；如果它不存在，才回退到 `test/books/demo-book/`；如果它存在但无效，则会停下来提示，而不会静默切回 `demo-book`。手测步骤见 `test/books/demo-book/MANUAL-TEST.md`。
+## 单本书工作区
 
-单本书工作区默认包含两份高层入口文件：
+每本书默认包含：
 
-- `summary.md`：高层稳定结论。
-- `context.md`：多轮确认后的关键上下文、冲突状态、覆盖依据与待确认问题。
+- `summary.md`：高层稳定结论（定稿层）。
+- `context.md`：多轮确认后的关键上下文、冲突状态、覆盖依据与待确认问题（定稿层）。
+- `outline/ plot/ characters/ canon/ chapters/ inbox/`：分域定稿文件。
+- `drafts/`：草稿层工作台 + 版本链（AI 默认写入位置）。
+- `.draft-index.yaml`：草稿索引（脚本维护）。
 
-`context.md` 只记录决策和冲突，不展开完整协议正文；具体规则由 `novel-system-reference` 维护。
+详细协议见 `skills/novel-draft-system/SKILL.md` 和 `skills/novel-system-reference/references/directory-contract.md`。
 
 ## 非目标
 
 - 这不是故事项目仓库。
-- 本仓库不保存故事资料或故事状态目录。
+- 本仓库不保存故事资料或故事状态目录（`test/books/` 下的两本测试书是受维护的夹具）。
 - 本仓库不保存 `.omx` 或 `.omc` 运行时状态。
-- `.codex/skills/` 镜像是生成产物，不是创作源目录。
+- 不做多本书并行工作区，不做云端/数据库/向量检索。

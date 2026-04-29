@@ -12,7 +12,7 @@
 
 作者级偏好、跨书复用经验走 `preference-memory-protocol.md`，不属于 `context.md` 主体协议。
 
-已落盘正文的返工走 `rewrite-branch-protocol.md`——但**阶段 C 之后**，这一协议被 `novel-draft-system` 的版本链替代：每次改写自然落草稿快照，rollback 即分支回退；不再需要手工维护改稿分支目录。
+已落盘正文的返工走 `novel-draft-system`：每次改写自然落草稿快照，rollback 即分支回退；不再需要手工维护独立的改稿分支目录。
 
 ## 与正文执行审计的边界（更新）
 
