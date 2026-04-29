@@ -40,7 +40,7 @@ def is_relative_to(path: Path, parent: Path) -> bool:
     return True
 
 
-def render_files(title: str) -> dict[str, str]:
+def render_files(title: str, book_id: str) -> dict[str, str]:
     return {
         "README.md": f"""# {title}
 
@@ -145,6 +145,16 @@ def render_files(title: str) -> dict[str, str]:
         "canon/locations.md": "# 地点\n\n待定。\n",
         "inbox/raw-ideas.md": "# 原始灵感\n\n待定。\n",
         "inbox/unresolved-questions.md": "# 未解决问题\n\n待定。\n",
+        # 草稿版本系统（novel-draft-system）
+        "drafts/.gitkeep": "",
+        ".draft-index.yaml": f"""book_id: {book_id}
+updated_at: 1970-01-01T00:00:00Z
+assets: {{}}
+stats:
+  total_assets: 0
+  forced_count: 0
+  forced_ratio: 0.0
+""",
     }
 
 
@@ -169,7 +179,7 @@ def create_scaffold(
             f"{target} 已存在。使用 --allow-existing 可只补齐缺失脚手架文件。"
         )
 
-    planned_files = render_files(title)
+    planned_files = render_files(title, book_id)
     created: list[Path] = []
     skipped: list[Path] = []
 
