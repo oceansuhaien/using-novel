@@ -53,7 +53,7 @@ description: 用于在不改主干事件的前提下给场景草稿加细节、�
 ## 按需读取
 
 - `../novel-scene-polish/references/prose-style-guide.md` — 番茄网文 × 小说大神风格指南（画面感/张力/情绪 × 文笔手感），加料时对照使用。
-- `../novel-scene-polish/references/tomato-style-checklist.md` — 白描落点、感官细节、对白托底检查（扩写也适用）。
+- `../novel-scene-polish/references/tomato-style-checklist.md` — 镜头感、感官细节、对白托底检查（扩写也适用）。
 
 ## 不做的事
 
