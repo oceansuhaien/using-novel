@@ -37,7 +37,8 @@ description: 用于允许改事件顺序、角色决定、场景结构的场景�
 
 - 必须先回调 plan-slice 产新 slice（除非作者明确说"只改某一句话"——那该走 polish）。
 - 禁止把 rewrite 退化成 polish（改字句不改事件）。如果改动小 → 引导作者转 polish/expand。
-- 字数按 slice.intent.length_hint，但允许大幅偏离原稿（重写本职）。
+- **不设字数硬上限**。长度服务新意图、新节奏、新张力曲线；与原稿差异无上下限，允许大幅偏离（重写本职）。
+- 文风与 draft 一致：番茄网文 × 小说大神手感——画面感 / 张力 / 情绪。详见 `../novel-scene-polish/references/prose-style-guide.md`。
 - 强制模式（slice.forced=true）的 rewrite 也要附 `## 合理性偏离说明`。
 
 ## 与 draft 的区别
@@ -47,7 +48,7 @@ description: 用于允许改事件顺序、角色决定、场景结构的场景�
 | 触发 | 场景从无到有 | 场景已有但要重做 |
 | slice | 全新产出 | 基于旧 slice 改 |
 | 工作台同步 | 自动 | **不自动**，作者确认后 sync |
-| 字数 | 按 intent.length_hint | 按新 intent.length_hint，允许偏离原稿 |
+| 长度 | 服务节奏/情绪/张力，不设硬上限 | 服务新意图，不设硬上限，允许大幅偏离原稿 |
 
 ## 回报形态
 
@@ -55,6 +56,7 @@ description: 用于允许改事件顺序、角色决定、场景结构的场景�
 
 ## 按需读取
 
+- `../novel-scene-polish/references/prose-style-guide.md` — 番茄网文 × 小说大神风格指南（画面感/张力/情绪 × 文笔手感）。
 - `../novel-draft-system/references/snapshot-schema.md` — rewrite 快照头与 slice_ref 字段。
 
 ## 不做的事

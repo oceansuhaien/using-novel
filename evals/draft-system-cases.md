@@ -16,7 +16,7 @@
 | Case | 操作 | 预期 |
 | --- | --- | --- |
 | draft 自动同步工作台 | `draft-write.sh chapters/ch007 draft f.md` | 产 v001-draft.md 且工作台同步 |
-| polish 保持 ±10% | `draft-write.sh ... polish f.md` | 字数与上一版差距 ≤10% |
+| polish 事件主干不变 | `draft-write.sh ... polish f.md` | 事件结果/角色决定/场景结构不变；长度不做 ±N% 校验 |
 | **rewrite 不覆盖工作台** | `draft-write.sh ... rewrite f.md` | 只产 vNNN-rewrite.md 快照；工作台保留上一版；打印 HINT 提示 `draft-sync.sh` |
 | draft-sync 显式同步 | `draft-sync.sh chapters/ch007 4` | 工作台更新为 v004 内容 |
 | 版本号跨 kind 连续 | 依次 draft→polish→rewrite | 文件名为 v001/v002/v003 连续递增 |

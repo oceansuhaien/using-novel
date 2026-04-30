@@ -42,7 +42,7 @@ load:
 intent:
   goal: "让林婉第一次意识到老周知道她的真实身份"
   pov: lin_wan
-  length_hint: 1800
+  length_hint: 1800            # 可选软参考，不是硬门槛；缺省即按场景节奏自然收束
 forced: false
 ```
 
@@ -53,7 +53,7 @@ forced: false
 - `load.<id>.recent_events`：上限 5，越多越浪费上下文；默认 3。
 - `load.<id>.relations_with`：**只**能填 `on_stage` 列表内的其他 id。禁止列非在场者以避免关系网爆炸。
 - `load.<id>.identity`：推荐 1-3 个 section；只需识别锚点时用 `minimal`。
-- `intent.length_hint`：期望字数，draft 按此写。
+- `intent.length_hint`：**可选软参考**字数。draft/rewrite 会把它当成节奏口径，不作硬门槛；缺省时 draft 按场景节奏、情绪曲线、张力释放点自行收束，追求画面感 / 张力 / 情绪，不追求字数达标。
 
 ## 工作流
 

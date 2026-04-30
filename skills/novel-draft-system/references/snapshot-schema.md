@@ -28,16 +28,18 @@ reviewer_check: ["id-anchor", "voice-fit"]
 
 ## kind 白名单说明
 
-| kind | 使用场景 | 输入 | 输出体积要求 |
-|------|---------|------|-------------|
-| `draft` | novel-scene-draft 的初稿产出 | slice.yaml | 按 intent.length_hint |
-| `polish` | novel-scene-polish 不改结构 | 上一版正文 | 与上一版 ±10% |
-| `expand` | novel-scene-expand 加细节 | 上一版正文 | 比上一版大，但 ≤1.5× |
-| `rewrite` | novel-scene-rewrite 改结构 | 重跑的 slice.yaml | 按 intent.length_hint |
+| kind | 使用场景 | 输入 | 长度与边界 |
+|------|---------|------|-----------|
+| `draft` | novel-scene-draft 的初稿产出 | slice.yaml | 由场景节奏/情绪/张力决定，不设硬上限；`intent.length_hint` 为软参考 |
+| `polish` | novel-scene-polish 不改结构 | 上一版正文 | 事件主干/角色决定/场景结构不变；长度随改动自然起伏，无字数上下限 |
+| `expand` | novel-scene-expand 加细节 | 上一版正文 | 允许加料，事件不变；无字数上限，但需改事件才能继续 → 转 rewrite |
+| `rewrite` | novel-scene-rewrite 改结构 | 重跑的 slice.yaml | 服务新意图，不设硬上限，允许大幅偏离原稿 |
 | `manual` | 作者手动触发的快照 | 工作台当前内容 | 不限 |
 | `finalized` | finalize 流程补写的锚点 | = 当前工作台 | = 当前工作台 |
-| `forced` | 强制后门产出 | slice.yaml + 强制指令 | 按 intent.length_hint |
+| `forced` | 强制后门产出 | slice.yaml + 强制指令 | 按新意图收束，同 draft/rewrite |
 | `slice` | novel-scene-plan-slice 产出 | 环境+角色清单 | 短 yaml |
+
+所有正文类 kind（draft/polish/expand/rewrite/forced）统一追求**画面感 / 张力 / 情绪**，文风对齐 `../../novel-scene-polish/references/prose-style-guide.md`。
 
 ## 强制模式额外要求
 
