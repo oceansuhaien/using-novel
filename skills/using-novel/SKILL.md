@@ -1,6 +1,6 @@
 ---
 name: using-novel
-description: 用于开始中文网文创作对话，或把混合的小说需求自动分流到建书脚手架、大纲、剧情筹备、人物、场景切片/初稿/润色/扩写/重写、草稿协议等技能。入口集中做意图识别（draft/polish/expand/rewrite/finalize/rollback），作者用自然语言不需记命令。触发场景包括 /using-novel、创建新书、补齐目录、写大纲、梳理剧情、做人设卡、写场景正文、润色去 AI 味、扩写加细节、重写对峙段、定稿章节、回滚到某版。
+description: 用于开始中文网文创作对话，或把混合的小说需求自动分流到建书脚手架、大纲、剧情筹备、人物、场景切片/初稿/润色/扩写/重写、草稿协议等技能。入口集中做意图识别（import/draft/polish/expand/rewrite/finalize/rollback），作者用自然语言不需记命令。触发场景包括 /using-novel、创建新书、补齐目录、写大纲、梳理剧情、做人设卡、写场景正文、导入 inbox/ 外部草稿并润色扩写、润色去 AI 味、扩写加细节、重写对峙段、定稿章节、回滚到某版。
 ---
 
 <SUBAGENT-STOP>
@@ -34,6 +34,7 @@ description: 用于开始中文网文创作对话，或把混合的小说需求�
 | 作者说法类型 | 意图 | 路由目标 |
 |---|---|---|
 | "写第 N 章""开始新场景""按这个剧情写" | **draft** | plan-slice → draft |
+| "这是我写的草稿""润色我这份""拿这段当 v001""@inbox/..." | **import** | import → 再按二级意图转 polish/expand/rewrite |
 | "对白再自然点""去 AI 味""这段太像 AI""压一压" | **polish** | scene-polish |
 | "加心理活动""补环境描写""这段太仓促加细节" | **expand** | scene-expand |
 | "重写对峙段""换地点重写""让她这里拒绝""让他不出场" | **rewrite** | scene-rewrite（→ 回调 plan-slice） |
@@ -46,11 +47,17 @@ description: 用于开始中文网文创作对话，或把混合的小说需求�
 
 **rewrite vs polish 边界**：改事件顺序/角色决定/场景结构 → rewrite；只改字句节奏对白 → polish。不确定时选更轻的（polish）。
 
+**import 路由**：识别到作者投递的外部草稿（`inbox/<file>.md`、`@` 引用、"帮我润色这份"）时，三步串行：
+1. 解析源文件 + 目标 scene_id（未指明问一次）。
+2. `scripts/draft-write.sh chapters/<scene> manual <源文件> --source imported --note "imported from <源路径>"`。
+3. 按同一句里的二级意图继续 polish / expand / rewrite；若作者未声明 → 一次性问清。
+
 ## 组合规则（多个技能按序串行，不并行）
 
 - **从零开始写一本书**：`novel-book-scaffold` → `novel-outline-coach` → 视后续进 `novel-plot-weaver` / `novel-character-card-coach`。
 - **写新场景**：（筹备就绪前提下）`novel-scene-plan-slice` → `novel-scene-draft`。
 - **改写场景**（已有正文）：按意图识别表路由到 polish / expand / rewrite 之一。
+- **导入外部草稿**：按上面 import 路由三步走，不跑 plan-slice（导入稿已是正文）。
 - **筹备缺口补齐**：draft 报告"字段不够"时 → 回 `novel-scene-plan-slice`；plan-slice 发现人物未立 → 转 `novel-character-card-coach`；发现剧情节点缺 → 转 `novel-plot-weaver`。
 
 ## 草稿协议（所有写入遵守）

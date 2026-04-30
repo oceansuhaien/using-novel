@@ -18,6 +18,8 @@ description: 用于在不改主干事件的前提下给场景草稿加细节、�
 3. 需要知道环境细节时，可读当前场景的 `drafts/chapters/<scene>.slice.yaml` 的 `env.ambient`。
 4. 不读整张 plot、整张人物卡、非在场角色资料。
 
+**导入稿例外**：当工作台最新快照 `kind: manual` 且头部带 `source: imported` 时，**仅本轮首次扩写**允许额外一次性扫读 `summary.md` + 在场角色 identity 全量 + 与本场直接相关的 `canon/` 条目，用于让补的内心/环境/动作符合本书设定；不得用于改事件结果。后续轮次回到默认最小输入。
+
 ## 边界红线（与 polish 一致）
 
 - 禁止改事件顺序、角色决定、场景结构。

@@ -106,7 +106,7 @@ pad_ver() {
 
 # ---- yaml 头注入 ----
 # 读源文件，确保头部有 yaml 头；若源文件已有头则替换，否则前置插入。
-# 参数：<src-file> <dst-file> <ver> <kind> <from-ver|null> <forced:true|false> [note] [slice_ref] [forced_directive]
+# 参数：<src-file> <dst-file> <ver> <kind> <from-ver|null> <forced:true|false> [note] [slice_ref] [forced_directive] [source]
 write_with_header() {
     local src="$1"
     local dst="$2"
@@ -117,6 +117,7 @@ write_with_header() {
     local note="${7:-}"
     local slice_ref="${8:-}"
     local forced_directive="${9:-}"
+    local source_tag="${10:-}"
 
     local tmp
     tmp="$(mktemp)"
@@ -130,6 +131,7 @@ write_with_header() {
         echo "timestamp: $(iso_now)"
         echo "forced: ${forced}"
         [[ -n "$slice_ref" ]] && echo "slice_ref: ${slice_ref}"
+        [[ -n "$source_tag" ]] && echo "source: ${source_tag}"
         [[ -n "$note" ]] && echo "author_note: \"${note//\"/\\\"}\""
         [[ -n "$forced_directive" ]] && echo "forced_directive: \"${forced_directive//\"/\\\"}\""
         echo "---"

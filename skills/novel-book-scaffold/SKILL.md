@@ -64,6 +64,7 @@ test/books/<book-id>/
 - 高层稳定状态走 `summary.md`（经草稿协议工作台）。
 - 多轮确认后的关键上下文、冲突、覆盖依据走 `context.md`（经草稿协议工作台）。
 - 大纲 / 剧情 / 人物 / 章节 / canon / inbox 资料走各自子目录，**默认通过 `drafts/` 工作台改**，用户 finalize 才进定稿层。
+- `inbox/` 是**作者投递区**：外部草稿（章节初稿 md）、原始灵感、未解决问题的中转站。`@inbox/xxx.md` + "润色/扩写我这份"触发 `using-novel` 的 import 路由，自动写为 `chapters/<scene>` 的 v001-manual（带 `source: imported`）。
 - 回到 `using-novel` 或 coach 技能后，应优先通过 `draft-query.sh <asset>` 读取资产（三层查询顺序由协议保证）。
 - 除非用户明确要求，不要覆盖已有书籍文件。
 

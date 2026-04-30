@@ -16,7 +16,7 @@
 写一版草稿：版本链 + 工作台同步。
 
 ```bash
-draft-write.sh <asset> <kind> <content-file> [--from-ver N] [--forced] [--note "..."] [--slice-ref "..."]
+draft-write.sh <asset> <kind> <content-file> [--from-ver N] [--forced] [--note "..."] [--slice-ref "..."] [--source TAG]
 ```
 
 - `<asset>`：如 `chapters/ch007` 或 `characters/lin_wan/state`。
@@ -26,9 +26,23 @@ draft-write.sh <asset> <kind> <content-file> [--from-ver N] [--forced] [--note "
 - `--forced`：标记 forced=true，要求 content-file 末尾已有"合理性偏离说明"章节。
 - `--note`：author_note 字段，≤200 字。
 - `--slice-ref`：slice 文件相对路径。
+- `--source TAG`：可选来源标签，写入 yaml 头的 `source` 字段。`kind=manual` 常用：
+  - `imported` — 作者从 `inbox/` 投递的外部草稿导入为 v001（触发 polish/expand 的"导入稿例外"）。
+  - `state-archive` — finalize 触发的旧 state.md 归档。
+  其他 kind 一般留空。
 
 默认行为：先写 `vNNN-<kind>.md`，再覆盖工作台。  
 **例外：kind=rewrite 时不覆盖工作台**，需显式调 `draft-sync.sh`。
+
+### 外部草稿导入典型调用
+
+```bash
+bash scripts/draft-write.sh chapters/ch007 manual inbox/第七章草稿.md \
+    --source imported \
+    --note "imported from inbox/第七章草稿.md"
+```
+
+由 `using-novel` 的 import 路由自动触发，作者不需手敲。
 
 ## scripts/draft-sync.sh
 

@@ -22,6 +22,10 @@ slice_ref: chapters/ch007.slice.drafts/v001-slice.md
 author_note: "重写对峙段，让老周更保守"
                                         # 作者在触发本版时给的指令摘要，≤200 字
 forced_directive: "让林婉当场拔剑"     # forced=true 时记录作者原始指令
+source: imported                        # 可选来源标签。manual kind 常用值：
+                                        #   imported       = 作者从 inbox/ 投递的外部草稿
+                                        #   state-archive  = finalize 触发的状态回写归档
+                                        # 其他 kind 一般留空。
 reviewer_check: ["id-anchor", "voice-fit"]
                                         # 一致性检查脚本的检查项（通过才写这行）
 ```
@@ -34,7 +38,7 @@ reviewer_check: ["id-anchor", "voice-fit"]
 | `polish` | novel-scene-polish 不改结构 | 上一版正文 | 事件主干/角色决定/场景结构不变；长度随改动自然起伏，无字数上下限 |
 | `expand` | novel-scene-expand 加细节 | 上一版正文 | 允许加料，事件不变；无字数上限，但需改事件才能继续 → 转 rewrite |
 | `rewrite` | novel-scene-rewrite 改结构 | 重跑的 slice.yaml | 服务新意图，不设硬上限，允许大幅偏离原稿 |
-| `manual` | 作者手动触发的快照 | 工作台当前内容 | 不限 |
+| `manual` | 作者手动触发的快照（见下 source 语义） | 工作台当前内容 / 作者外部交付 | 不限 |
 | `finalized` | finalize 流程补写的锚点 | = 当前工作台 | = 当前工作台 |
 | `forced` | 强制后门产出 | slice.yaml + 强制指令 | 按新意图收束，同 draft/rewrite |
 | `slice` | novel-scene-plan-slice 产出 | 环境+角色清单 | 短 yaml |

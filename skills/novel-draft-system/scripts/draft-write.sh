@@ -10,11 +10,13 @@ source "${HERE}/_common.sh"
 
 usage() {
     cat >&2 <<EOF
-Usage: draft-write.sh <asset> <kind> <content-file> [--from-ver N] [--forced] [--note "..."] [--slice-ref "..."] [--forced-directive "..."]
+Usage: draft-write.sh <asset> <kind> <content-file> [--from-ver N] [--forced] [--note "..."] [--slice-ref "..."] [--forced-directive "..."] [--source TAG]
 
   <asset>         e.g. chapters/ch007  或  characters/lin_wan/state
   <kind>          draft|polish|expand|rewrite|manual|forced|slice
   <content-file>  路径，正文源文件（UTF-8），脚本会在其前插入 yaml 头
+  --source TAG    可选标签。manual kind 常用值：imported（作者外部导入）、
+                  state-archive（状态回写归档）；其他 kind 一般留空。
 
 Exit codes:
   0 成功
@@ -36,6 +38,7 @@ FORCED="false"
 NOTE=""
 SLICE_REF=""
 FORCED_DIRECTIVE=""
+SOURCE_TAG=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -44,6 +47,7 @@ while [[ $# -gt 0 ]]; do
         --note) NOTE="$2"; shift 2 ;;
         --slice-ref) SLICE_REF="$2"; shift 2 ;;
         --forced-directive) FORCED_DIRECTIVE="$2"; shift 2 ;;
+        --source) SOURCE_TAG="$2"; shift 2 ;;
         *) echo "ERROR: unknown arg $1" >&2; usage ;;
     esac
 done
@@ -93,7 +97,7 @@ else
 fi
 
 # 写版本链
-write_with_header "$CONTENT_FILE" "$SNAPSHOT_FILE" "$NEW_VER" "$KIND" "$FROM_VER" "$FORCED" "$NOTE" "$SLICE_REF" "$FORCED_DIRECTIVE"
+write_with_header "$CONTENT_FILE" "$SNAPSHOT_FILE" "$NEW_VER" "$KIND" "$FROM_VER" "$FORCED" "$NOTE" "$SLICE_REF" "$FORCED_DIRECTIVE" "$SOURCE_TAG"
 
 # 覆盖工作台（rewrite 例外 —— 不覆盖，提示作者对比后手动 sync）
 if [[ "$KIND" == "rewrite" ]]; then

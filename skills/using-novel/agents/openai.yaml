@@ -1,4 +1,4 @@
 interface:
   display_name: "小说技能入口"
-  short_description: "把中文网文任务分流到建书脚手架、大纲、剧情筹备、人物、场景切片/初稿/润色/扩写/重写、草稿协议等技能。入口集中做意图识别（draft/polish/expand/rewrite/finalize/rollback），作者用自然语言不需记命令。"
-  default_prompt: "使用 $using-novel 判断本轮小说任务的意图并路由：写新场景=plan-slice+draft；改字句=polish；加细节=expand；改事件/结构=rewrite；定稿=finalize；回滚=rollback；筹备类按 outline/character/plot-weaver 分流。所有 AI 写入默认走 novel-draft-system 的草稿协议：落 drafts/ 工作台，用户 finalize 才进定稿层；查询固定三层（drafts → snapshot → finalized）。rewrite 产物不自动覆盖工作台，作者确认后运行 draft-sync。强制后门（@force）要求附合理性偏离说明；forced 占比 >15% 脚本警告。进入任务前按需读取作者级/单书级偏好记忆；本轮新结论先记候选经验，用户确认后才升级稳定规则。只有在高置信且能说明违反了哪条设定或哪类毒点时才直接拦截；模糊感觉不对只能提醒。"
+  short_description: "把中文网文任务分流到建书脚手架、大纲、剧情筹备、人物、场景切片/初稿/润色/扩写/重写、草稿协议等技能。入口集中做意图识别（import/draft/polish/expand/rewrite/finalize/rollback），作者用自然语言不需记命令。"
+  default_prompt: "使用 $using-novel 判断本轮小说任务的意图并路由：写新场景=plan-slice+draft；导入 inbox/ 外部草稿=import（draft-write manual --source imported）再按二级意图转 polish/expand/rewrite；改字句=polish；加细节=expand；改事件/结构=rewrite；定稿=finalize；回滚=rollback；筹备类按 outline/character/plot-weaver 分流。所有 AI 写入默认走 novel-draft-system 的草稿协议：落 drafts/ 工作台，用户 finalize 才进定稿层；查询固定三层（drafts → snapshot → finalized）。rewrite 产物不自动覆盖工作台，作者确认后运行 draft-sync。强制后门（@force）要求附合理性偏离说明；forced 占比 >15% 脚本警告。进入任务前按需读取作者级/单书级偏好记忆；本轮新结论先记候选经验，用户确认后才升级稳定规则。只有在高置信且能说明违反了哪条设定或哪类毒点时才直接拦截；模糊感觉不对只能提醒。"

@@ -19,6 +19,8 @@ description: 用于只改语言、节奏、去 AI 味、对白校正的场景草
 2. 不重跑 plan-slice。
 3. 只在识别"对白不像人物"时读 `characters/<id>.md` 的 identity/personality 两个 section（最小补齐，不读 state/relations）。
 
+**导入稿例外**：当工作台最新快照 `kind: manual` 且头部带 `source: imported` 时，**仅本轮首次润色**允许额外一次性扫读 `summary.md` + 在场角色 identity 全量 + 与本场直接相关的 `canon/` 条目，用于校对外部稿与本书架构的一致性；发现冲突以注释列出，不擅自改正文。后续轮次回到默认最小输入。
+
 ## 边界红线（违反即停）
 
 - 禁止改事件顺序。
